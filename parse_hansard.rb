@@ -53,11 +53,8 @@ target.write("<!DOCTYPE html>
 <head>
   <title>Parsed Hansard - #{input_file}</title>
   <meta charset='utf-8'>
-  <style>
-    span.highlight1 { background: #FAF741; padding: 0 2px; }
-    span.highlight2 { background: #A1FF96; }
-    span.highlight3 { background: #96FFC9; }
-  </style>
+  <link rel='stylesheet' href='main.css'>
+  <script type='text/javascript' src='main.js'>
 </head>
 <body>
 <form>
@@ -86,10 +83,12 @@ captures.each do |c|
   target.write("<label>Speaker:</label>")
   target.write("<input type='text' name='speaker' value='#{c[:speaker]}'>\n")
   target.write("<label>Spoken:</label>")
-  target.write("<input type='text' name='spoken'>\n")
+  target.write("<input type='text' name='spoken' value='#{c[:content]}'>\n")
+  target.write("<button class='confirm'>confirm</button>\n")
   target.write("<button class='mute'>mute</button>\n")
-  target.write("<button class=''>+ speaker</button>\n")
-  target.write("<button class='mute'>+ motion</button>\n")
+  target.write("<button class='add_speaker'>+ speaker</button>\n")
+  target.write("<button class='add_motion'>+ motion</button>\n")
+  target.write("<button class='add_vote'>+ vote</button>\n")
   target.write("</form>\n")
   target.write("</div>\n")
 end
