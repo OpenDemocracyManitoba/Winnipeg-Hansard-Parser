@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'cgi'
 
 attendees = ["Mayor Katz", "Councillor Sharma", "Councillor Browaty", "Councillor Eadie", "Councillor Fielding", "Councillor Gerbasi", "Councillor Havixbeck", "Councillor Mayes", "Councillor Nordman", "Councillor Orlikow", "Councillor Pagtakhan", "Councillor Smith", "Councillor Steen", "Councillor Swandel", "Councillor Vandal", "Councillor Wyatt"]
 
@@ -33,16 +34,18 @@ paragraphs.each do |p|
       speaker = spans[0].content.chomp(' ').chomp(':')
     end
     
-    captures[capture_index] = { speaker: speaker, content: "" }
+    captures[capture_index] = { speaker: speaker, content_html: "", content_raw: "" }
     new_capture = false
   end
   
   p.children.each do |child|
-    content = child.content
-    content.gsub!(/:/, "<span class='highlight1'>:</span>")  unless child.name == 'span'
-    content.gsub!(/Motion No/, "<span class='highlight2'>Motion No</span>")
-    content.gsub!(/([A-Z ]{6,})/, '<span class=\'highlight3\'>\1</span>')
-    captures[capture_index][:content] += content + " "
+    content_raw = CGI.escapeHTML(child.content)
+    content_html = content_raw
+    content_html = content_html.gsub(/:/, "<span class='highlight1'>:</span>")  unless child.name == 'span'
+    content_html = content_html.gsub(/Motion No/, "<span class='highlight2'>Motion No</span>")
+    content_html = content_html.gsub(/([A-Z ]{6,})/, '<span class=\'highlight3\'>\1</span>')
+    captures[capture_index][:content_raw] += content_raw + " "  unless child.name == 'span'
+    captures[capture_index][:content_html] += content_html + " "
   end
 end
 
@@ -54,7 +57,7 @@ target.write("<!DOCTYPE html>
   <title>Parsed Hansard - #{input_file}</title>
   <meta charset='utf-8'>
   <link rel='stylesheet' href='main.css'>
-  <script type='text/javascript' src='main.js'>
+  <script type='text/javascript' src='main.js'></script>
 </head>
 <body>
 <form>
@@ -78,17 +81,18 @@ target.write("</form>")
 
 captures.each do |c|
   target.write("<div>\n")
-  target.write("<p>#{c[:content]}</p>\n")
+  target.write("<p>#{c[:content_html]}</p>\n")
   target.write("<form>\n")
   target.write("<label>Speaker:</label>")
   target.write("<input type='text' name='speaker' value='#{c[:speaker]}'>\n")
   target.write("<label>Spoken:</label>")
-  target.write("<input type='text' name='spoken' value='#{c[:content]}'>\n")
+  target.write("<input type='text' name='spoken' value=\"#{c[:content_raw]}\">\n") # Using double quotes for value since content may include single quotes.
   target.write("<button class='confirm'>confirm</button>\n")
   target.write("<button class='mute'>mute</button>\n")
   target.write("<button class='add_speaker'>+ speaker</button>\n")
   target.write("<button class='add_motion'>+ motion</button>\n")
   target.write("<button class='add_vote'>+ vote</button>\n")
+  target.write("<button class='add_section'>+ section</button>\n")
   target.write("</form>\n")
   target.write("</div>\n")
 end
