@@ -1,5 +1,7 @@
 require 'nokogiri'
 
+attendees = ["Mayor Katz", "Councillor Sharma", "Councillor Browaty", "Councillor Eadie", "Councillor Fielding", "Councillor Gerbasi", "Councillor Havixbeck", "Councillor Mayes", "Councillor Nordman", "Councillor Orlikow", "Councillor Pagtakhan", "Councillor Smith", "Councillor Steen", "Councillor Swandel", "Councillor Vandal", "Councillor Wyatt"]
+
 if ARGV.size != 2
   puts "Missing required arguments!"
   puts "Example: #{$0} input.html output.html"
@@ -14,16 +16,11 @@ paragraphs = doc.css('div > p')
 
 puts "Found #{paragraphs.size} paragraphs."
 
-attendees = ["Mayor Katz", "Councillor Sharma", "Councillor Browaty", "Councillor Eadie", "Councillor Fielding", "Councillor Gerbasi", "Councillor Havixbeck", "Councillor Mayes", "Councillor Nordman", "Councillor Orlikow", "Councillor Pagtakhan", "Councillor Smith", "Councillor Steen", "Councillor Swandel", "Councillor Vandal", "Councillor Wyatt"]
-
 new_capture = true
 captures = []
 capture_index = -1
 
-speakers = Hash.new { |hash, key| hash[key] = [] }
-
 paragraphs.each do |p|
-  children = p.children
   spans = p.css('span')
   
   new_capture = capture_index == -1 || (!spans.size.zero? && spans[0].content.include?(':'))
@@ -34,8 +31,6 @@ paragraphs.each do |p|
     
     unless spans.size.zero? || !spans[0].content.include?(':')
       speaker = spans[0].content.chomp(' ').chomp(':')
-        speakers[speaker].push(capture_index)
-      
     end
     
     captures[capture_index] = { speaker: speaker, content: "" }
@@ -75,6 +70,7 @@ target.write("<!DOCTYPE html>
   <label>Meeting Speaker:</label>
   <input type='text' name='meeting_speaker'>
   <br>")
+
 attendees.each do |attendee|
   attendee_snake_case = attendee.gsub(' ','_')
   target.write("<label for='#{attendee_snake_case}'>#{attendee}</label>")
