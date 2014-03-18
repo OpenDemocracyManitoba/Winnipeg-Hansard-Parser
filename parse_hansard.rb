@@ -57,49 +57,128 @@ target.write("<!DOCTYPE html>
   <title>Parsed Hansard - #{input_file}</title>
   <meta charset='utf-8'>
   <link rel='stylesheet' href='main.css'>
+  <script type='text/javascript' src='jzed.js'></script>
   <script type='text/javascript' src='main.js'></script>
 </head>
 <body>
-<form>
-  <label>Date:</label>
-  <input type='text' name='date'>
-  <label>Time:</label>
-  <input type='text' name='time'>
-  <label>Prayer by:</label>
-  <input type='text' name='prayer_by'>
-  <label>Meeting Speaker:</label>
-  <input type='text' name='meeting_speaker'>")
+<button id='build_json'>Build JSON</button>
+<section class='meta'>
+  <form data-capture-type='object'>
+    <label>Date:</label>
+    <input class='capture' type='text' name='date'>
+    <label>Time:</label>
+    <input class='capture' type='text' name='time'>
+    <label>Prayer by:</label>
+    <input class='capture' type='text' name='prayer_by'>
+    <label>Meeting Speaker:</label>
+    <input class='capture' type='text' name='meeting_speaker'>
+  </form>
+</section>
+<section class='hansard'>")
 
-
-  
-target.write("</form>\n")
 
 captures.each do |c|
-  target.write("<div>\n")
+  target.write("<form data-capture-type='array' data-key='speaker'>\n")
+  target.write("<button class='next'>next</button>\n")
   target.write("<p>#{c[:content_html]}</p>\n")
-  target.write("<form>\n")
   target.write("<label>Speaker:</label>")
-  target.write("<input type='text' name='speaker' value='#{c[:speaker]}'>\n")
-  target.write("<label>Spoken:</label>")
-  target.write("<textarea name='spoken'>#{c[:content_raw]}</textarea>\n") # Using double quotes for value since content may include single quotes.
-  target.write("<button class='confirm'>confirm</button>\n")
-  target.write("<button class='mute'>mute</button>\n")
+  target.write("<input class='capture' type='text' name='name' value='#{c[:speaker]}'><br>\n")
+  target.write("<label>Spoken:</label><br>")
+  target.write("<textarea class='capture' name='spoken'>#{c[:content_raw]}</textarea>\n") # Using double quotes for value since content may include single quotes.
+  target.write("<br><button class='mute'>mute</button>\n")
   target.write("<button class='add_speaker'>+ speaker</button>\n")
   target.write("<button class='add_motion'>+ motion</button>\n")
   target.write("<button class='add_vote'>+ vote</button>\n")
   target.write("<button class='add_section'>+ section</button>\n")
   target.write("</form>\n")
-  target.write("</div>\n")
 end
 
-target.write("<h2>Attendance</h2>\n")
-target.write("<form>\n")
+target.write("</section>
+<h2>Attendance</h2>
+<section class='attendance'>
+<form data-capture-type='object'>\n")
 attendees.each do |attendee|
   attendee_snake_case = attendee.gsub(' ','_')
   target.write("<label for='#{attendee_snake_case}'>#{attendee}</label>")
-  target.write("<input type='checkbox' name='present' value='#{attendee}' id='#{attendee_snake_case}'>\n")
+  target.write("<input class='capture' type='checkbox' checked='checked' value='#{attendee}' id='#{attendee_snake_case}'>\n")
 end
-target.write("</form>\n")
+target.write("</form>
+</section>
 
-target.write('</body></html>')
+<div class='hidden' id='speaker-template'>
+  <form data-capture-type='array' data-key='speaker'>
+  <button class='next'>next</button>
+  <br>
+  <label>Speaker:</label>
+  <input class='capture' type='text' name='name' value=''>
+  <br>
+  <label>Spoken:</label>
+  <br>
+  <textarea class='capture' name='spoken'></textarea>
+  <br>
+  <button class='mute'>mute</button>
+  <button class='add_speaker'>+ speaker</button>
+  <button class='add_motion'>+ motion</button>
+  <button class='add_vote'>+ vote</button>
+  <button class='add_section'>+ section</button>
+  </form>
+</div>
+<div class='hidden' id='motion-template'>
+  <form data-capture-type='array' data-key='motion'>
+  <button class='next'>next</button>
+  <br>
+  <label>Motion:</label>
+  <input class='capture' type='text' name='name' value=''>
+  <label>Moved by:</label>
+  <input class='capture' type='text' name='moved_by' value=''>
+  <label>Seconded by:</label>
+  <input class='capture' type='text' name='seconded_by' value=''>
+  <br>
+  <label>Motion Text:</label>
+  <br>
+  <textarea class='capture' name='motion_text'></textarea>
+  <br>
+  <button class='mute'>mute</button>
+  <button class='add_speaker'>+ speaker</button>
+  <button class='add_motion'>+ motion</button>
+  <button class='add_vote'>+ vote</button>
+  <button class='add_section'>+ section</button>
+  </form>
+</div>
+<div class='hidden' id='vote-template'>
+  <form data-capture-type='array' data-key='vote'>
+  <button class='next'>next</button>
+  <br>
+  <label>Vote:</label>
+  <input class='capture' type='text' name='name' value=''>
+  <label>Yeas:</label>
+  <input class='capture' type='text' name='yeas' value=''>
+  <label>Nays:</label>
+  <input class='capture' type='text' name='nays' value=''>
+  <label>Outcome:</label>
+  <input class='capture' type='text' name='outcome' value=''>
+  <br>
+  <button class='mute'>mute</button>
+  <button class='add_speaker'>+ speaker</button>
+  <button class='add_motion'>+ motion</button>
+  <button class='add_vote'>+ vote</button>
+  <button class='add_section'>+ section</button>
+  </form>
+</div>
+<div class='hidden' id='section-template'>
+  <form data-capture-type='array' data-key='section'>
+  <button class='next'>next</button>
+  <br>
+  <label>Section:</label>
+  <input class='capture' type='text' name='name' value=''>
+  <br>
+  <button class='mute'>mute</button>
+  <button class='add_speaker'>+ speaker</button>
+  <button class='add_motion'>+ motion</button>
+  <button class='add_vote'>+ vote</button>
+  <button class='add_section'>+ section</button>
+  </form>
+</div>
+</body>
+</html>")
 target.close

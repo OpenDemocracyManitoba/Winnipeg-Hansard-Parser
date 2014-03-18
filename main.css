@@ -10,3 +10,25 @@ span.highlight2 {
 span.highlight3 {
     background: #96FFC9;
 }
+
+.muted {
+    opacity: .2;
+}
+
+.hidden {
+    display: none;
+}
+
+form {
+    padding: 1em;
+    border-bottom: 1px solid grey;
+}
+
+form label {
+    font-weight: bold;
+}
+
+textarea {
+    width: 1000px;
+    height: 100px;
+}
