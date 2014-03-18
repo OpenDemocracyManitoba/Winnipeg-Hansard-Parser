@@ -68,16 +68,11 @@ target.write("<!DOCTYPE html>
   <label>Prayer by:</label>
   <input type='text' name='prayer_by'>
   <label>Meeting Speaker:</label>
-  <input type='text' name='meeting_speaker'>
-  <br>")
+  <input type='text' name='meeting_speaker'>")
 
-attendees.each do |attendee|
-  attendee_snake_case = attendee.gsub(' ','_')
-  target.write("<label for='#{attendee_snake_case}'>#{attendee}</label>")
-  target.write("<input type='checkbox' checked name='present' value='#{attendee}' id='#{attendee_snake_case}'>\n")
-end
+
   
-target.write("</form>")
+target.write("</form>\n")
 
 captures.each do |c|
   target.write("<div>\n")
@@ -86,7 +81,7 @@ captures.each do |c|
   target.write("<label>Speaker:</label>")
   target.write("<input type='text' name='speaker' value='#{c[:speaker]}'>\n")
   target.write("<label>Spoken:</label>")
-  target.write("<input type='text' name='spoken' value=\"#{c[:content_raw]}\">\n") # Using double quotes for value since content may include single quotes.
+  target.write("<textarea name='spoken'>#{c[:content_raw]}</textarea>\n") # Using double quotes for value since content may include single quotes.
   target.write("<button class='confirm'>confirm</button>\n")
   target.write("<button class='mute'>mute</button>\n")
   target.write("<button class='add_speaker'>+ speaker</button>\n")
@@ -96,6 +91,15 @@ captures.each do |c|
   target.write("</form>\n")
   target.write("</div>\n")
 end
+
+target.write("<h2>Attendance</h2>\n")
+target.write("<form>\n")
+attendees.each do |attendee|
+  attendee_snake_case = attendee.gsub(' ','_')
+  target.write("<label for='#{attendee_snake_case}'>#{attendee}</label>")
+  target.write("<input type='checkbox' name='present' value='#{attendee}' id='#{attendee_snake_case}'>\n")
+end
+target.write("</form>\n")
 
 target.write('</body></html>')
 target.close
