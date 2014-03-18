@@ -61,7 +61,6 @@ target.write("<!DOCTYPE html>
   <script type='text/javascript' src='main.js'></script>
 </head>
 <body>
-<button id='build_json'>Build JSON</button>
 <section class='meta'>
   <form data-capture-type='object'>
     <label>Date:</label>
@@ -104,6 +103,11 @@ attendees.each do |attendee|
 end
 target.write("</form>
 </section>
+<div>
+  <h2>Generate JSON</h2>
+  <input id='json_output'>
+  <button id='build_json'>Build JSON</button>
+</div>
 
 <div class='hidden' id='speaker-template'>
   <form data-capture-type='array' data-key='speaker'>

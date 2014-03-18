@@ -1,6 +1,7 @@
 $boot(function(){
     'use strict';
     
+    
     // Binds click handlers for a specific event to a
     // collection of nodes. Ensures that handlers are
     // never set twice by removing first and then setting.
@@ -75,6 +76,7 @@ $boot(function(){
     
     var build_json_button = $id('build_json');
     $on(build_json_button, 'click', function(){
+        console.log("Asdfa");
         var sections = $all('section'),
             json = {};
         
@@ -130,8 +132,7 @@ $boot(function(){
             });
         });
         
-        var json_string = JSON.stringify(json);
-        console.log(json_string);
-        console.dir(json);
+        var json_output = $id('json_output');
+        json_output.value = JSON.stringify(json);
     });
 });
