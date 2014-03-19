@@ -44,7 +44,7 @@ paragraphs.each do |p|
     content_html = content_html.gsub(/:/, "<span class='highlight1'>:</span>")  unless child.name == 'span'
     content_html = content_html.gsub(/Motion No/, "<span class='highlight2'>Motion No</span>")
     content_html = content_html.gsub(/([A-Z ]{6,})/, '<span class=\'highlight3\'>\1</span>')
-    captures[capture_index][:content_raw] += content_raw + " "  unless child.name == 'span'
+    captures[capture_index][:content_raw] += content_raw + " "  # unless child.name == 'span' # Why was this span removal here? It's messing things up.
     captures[capture_index][:content_html] += content_html + " "
   end
 end
@@ -105,7 +105,7 @@ target.write("</form>
 </section>
 <div>
   <h2>Generate JSON</h2>
-  <input id='json_output'>
+  <textarea id='json_output'></textarea>
   <button id='build_json'>Build JSON</button>
 </div>
 

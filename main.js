@@ -53,7 +53,7 @@ $boot(function(){
         e.preventDefault();
         var next_form = $next($parent(node));
         next_form.scrollIntoView(true);
-    }
+    };
     
     // Binds all the click handlers to the appropriate buttons.
     function bind_click_events() {
@@ -76,7 +76,6 @@ $boot(function(){
     
     var build_json_button = $id('build_json');
     $on(build_json_button, 'click', function(){
-        console.log("Asdfa");
         var sections = $all('section'),
             json = {};
         
@@ -101,8 +100,7 @@ $boot(function(){
                     if (capture_type == 'checkbox') {
                         capture_object = capture_object || [];
                         var capture_value = $attribute_of(capture_node, 'value');
-                        var checked = $attribute_of(capture_node, 'checked') || 'unchecked';
-                        if (checked === 'checked') {
+                        if (capture_node.checked) {
                             capture_object.push(capture_value);
                         }
                     } else { // Captures that are not checkboxes nest within objects.
@@ -133,6 +131,8 @@ $boot(function(){
         });
         
         var json_output = $id('json_output');
-        json_output.value = JSON.stringify(json);
+        var json_string = JSON.stringify(json);
+        json_output.value = json_string;
+        console.log(json_string);
     });
 });
