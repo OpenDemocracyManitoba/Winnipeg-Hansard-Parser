@@ -27,6 +27,9 @@ paragraphs.each do |p|
   new_capture = capture_index == -1 || (!spans.size.zero? && spans[0].content.include?(':'))
   
   if new_capture
+    if capture_index > 0 # Remove speaker's name from the front of the captured raw contents of previous index.
+      captures[capture_index][:content_raw].gsub!(/^#{captures[capture_index][:speaker]}:\s+/, "")
+    end
     speaker = "Unknown"
     capture_index += 1
     
