@@ -23,24 +23,24 @@ capture_index = -1
 
 paragraphs.each do |p|
   spans = p.css('span')
-  
+
   new_capture = capture_index == -1 || (!spans.size.zero? && spans[0].content.include?(':'))
-  
+
   if new_capture
     if capture_index > 0 # Remove speaker's name from the front of the captured raw contents of previous index.
       captures[capture_index][:content_raw].gsub!(/^#{captures[capture_index][:speaker]}:\s+/, "")
     end
     speaker = "Unknown"
     capture_index += 1
-    
+
     unless spans.size.zero? || !spans[0].content.include?(':')
       speaker = spans[0].content.chomp(' ').chomp(':')
     end
-    
+
     captures[capture_index] = { speaker: speaker, content_html: "", content_raw: "" }
     new_capture = false
   end
-  
+
   p.children.each do |child|
     content_raw = CGI.escapeHTML(child.content)
     content_html = content_raw
