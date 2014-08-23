@@ -91,6 +91,13 @@ $boot(function(){
         }
     });
 
+    // Warn users if they try to navigate away from the app.
+    $on(window, 'beforeunload', function(e) {
+         var confirmationMessage = "Are you sure you wish to navigate away from the app? Unsaved changes will be lost.";
+         (e || window.event).returnValue = confirmationMessage;     //Gecko + IE
+         return confirmationMessage;                                //Webkit, Safari, Chrome etc.
+    });
+
     var build_json_button = $id('build_json');
     $on(build_json_button, 'click', function(){
         var sections = $all('section'),
