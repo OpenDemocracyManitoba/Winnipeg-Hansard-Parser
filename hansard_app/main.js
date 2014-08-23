@@ -84,8 +84,6 @@ $boot(function(){
             } else if ((i < flagged_for_review.length - 1) && key == 39) {
                 i++;
             }
-            console.log(flagged_for_review.length);
-               console.log(i);
             var element = flagged_for_review[i];
             if (element) {
                 window.scrollTo(window.scrollX, element.offsetTop);
@@ -152,6 +150,5 @@ $boot(function(){
         var json_output = $id('json_output');
         var json_string = JSON.stringify(json);
         json_output.value = json_string;
-        console.log(json_string);
     });
 });
