@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title><%= @hansard['meta']['date'] %> Winipeg Council Meeting</title>
+    <meta charset="utf-8">
+<!--
+    <meta http-equiv="refresh" content="4">
+-->
+    <style>
+        #wrap {
+            width: 1024px;
+            margin: 0 auto;
+       }
+        ul.sections {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        ul.sections li.section:nth-child(odd) {
+            background-color: #eee;
+        } 
+        li.section, header h1 {
+            border: 5px solid #eee;
+            padding: 15px;
+            overflow: auto;
+        } 
+        li.section.speaker img {
+            width: 100px;
+            float: left;
+        }
+        li.section.speaker blockquote {
+            float: left;
+            width: 860px;
+            margin: 0;
+            margin-left: 1em;
+            line-height: 1.4em;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <header>
+            <h1><%= @hansard['meta']['date'] %> Winipeg Council Meeting</h1>
+        </header>
+        <ul class='sections'>
+            <% @hansard['hansard'].each do |section| %>
+                <li class="section <%= section['type'] %>">
+                    <h2><%= section['name'] %></h2>
+                    <% if section['type'] == 'speaker' %>
+                        <img src="images/<%= section['name'].gsub(' ','_') %>.jpg">
+                        <blockquote>
+                            <%= section['spoken'] %>
+                        </blockquote>
+                    <% elsif section['type'] == 'vote' %>
+                        <dl>
+                            <dt>Outcome</dt>
+                            <dd><%= section['outcome'] %></dd>
+                            <dt>Yeas</dt>
+                            <dd><%= section['yeas'] %></dd>
+                            <dt>Nays</dt>
+                            <dd><%= section['nays'] %></dd>
+                        </dl>
+                    <% elsif section['type'] == 'motion' %>
+                        <dl>
+                            <dt>Moved By</dt>
+                            <dd><%= section['moved_by'] %></dd>
+                            <dt>Seconded By</dt>
+                            <dd><%= section['seconded_by'] %></dd>
+                            <dt>Motion</dt>
+                            <dd><%= section['motion_text'] %></dd>
+                        </dl>
+                    <% end %>
+                </li>
+            <% end %>
+        </ul>
+    </div>
+</body>
+</html>
+

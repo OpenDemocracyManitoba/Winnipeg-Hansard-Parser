@@ -7,10 +7,9 @@
   },
   "hansard": [
     {
-      "name": "Clerk",
-      "spoken": "Madam Speaker Councillor Sharma, His Worship Mayor Katz, Councillors Browaty, Eadie, Fielding, Gerbasi, Havixbeck, Mayes, Nordman, Orlikow, Pagtakhan, Smith, Steen, Swandel, Vandal and Councillor Wyatt. INTRODUCTION AND WELCOME OF GUESTS AND ANNOUNCEMENTS ",
-      "type": "speaker"
-    },
+      "name": "INTRODUCTION AND WELCOME OF GUESTS AND ANNOUNCEMENTS",
+      "type": "section"
+    }, 
     {
       "name": "Madam Speaker",
       "spoken": "Thank you. Mayor Katz, I understand you have an announcement to share. ",
@@ -105,8 +104,8 @@
       "type": "speaker"
     },
     {
-      "name": ": Yes.",
-      "spoken": "Councillor Smith : Yes. ",
+      "name": "Councillor Smith",
+      "spoken": "Yes.",
       "type": "speaker"
     },
     {
@@ -130,7 +129,7 @@
       "type": "speaker"
     },
     {
-      "name": " Stephanie Voyce",
+      "name": "Stephanie Voyce",
       "spoken": "No. Councillor Gerbasi is a member of our Board.",
       "type": "speaker"
     },
@@ -175,8 +174,8 @@
       "type": "speaker"
     },
     {
-      "name": "David Sanders: I",
-      "spoken": "David Sanders: I  understand if there is such information in those reports it would be important to redact it but to deny access to the whole report is to deny the whole process, the whole principle of Provincial legislation and to keep everyone in the dark and I don't accept that. And I don't accept really the original principle because I\u2019ll be surprised if there is anything in those reports which would in any way materially affect the ability of the City to make the best arrangements in an open bidding process. ",
+      "name": "David Sanders",
+      "spoken": "I  understand if there is such information in those reports it would be important to redact it but to deny access to the whole report is to deny the whole process, the whole principle of Provincial legislation and to keep everyone in the dark and I don't accept that. And I don't accept really the original principle because I\u2019ll be surprised if there is anything in those reports which would in any way materially affect the ability of the City to make the best arrangements in an open bidding process. ",
       "type": "speaker"
     },
     {

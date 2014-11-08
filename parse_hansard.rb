@@ -4,7 +4,7 @@ require 'cgi'
 attendees = ['Mayor Katz', 'Councillor Sharma', 'Councillor Browaty', 'Councillor Eadie', 'Councillor Fielding', 'Councillor Gerbasi', 'Councillor Havixbeck', 'Councillor Mayes', 'Councillor Nordman', 'Councillor Orlikow', 'Councillor Pagtakhan', 'Councillor Smith', 'Councillor Steen', 'Councillor Swandel', 'Councillor Vandal', 'Councillor Wyatt']
 
 if ARGV.size != 2
-  puts 'Missing required arguments!'
+  puts 'Missing required arguments.'
   puts "Example: #{$PROGRAM_NAME} input.html output.html"
   exit
 end
