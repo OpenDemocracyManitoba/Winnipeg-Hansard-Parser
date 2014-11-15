@@ -5,9 +5,21 @@ class HansardViz
   include ERB::Util
 
   def initialize(files)
-    @hansard          = JSON.parse(files[:json_hansard].read)
+    @hansard          = process(files[:json_hansard])
     @template         = files[:erb_template].read
     @output_html_file = files[:html_dataviz]
+  end
+
+  def process(file)
+    hansard_data = JSON.parse(file.read)
+    hansard_data['meta']['words_spoken'] = Hash.new(0)
+    hansard_data['hansard'].each do |section|
+     case section['type']
+     when 'speaker'
+        hansard_data['meta']['words_spoken'][section['name']] += section['spoken'].length 
+     end
+    end
+    hansard_data
   end
 
   def render
