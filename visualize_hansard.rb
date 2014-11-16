@@ -1,7 +1,6 @@
 require 'json'
 require 'erb'
 require 'words_counted'
-require 'pp'
 
 class HansardViz
   include ERB::Util
@@ -51,19 +50,19 @@ class HansardViz
   end
 end
 
-if ARGV.size != 2
-  puts 'Missing required arguments.'
-  puts "Example: #{$PROGRAM_NAME} input.json template.erb"
-  exit
-end
+#if ARGV.size != 2
+  #puts 'Missing required arguments.'
+  #puts "Example: #{$PROGRAM_NAME} input.json template.erb"
+  #exit
+#end
 
-input_json_file = File.open(ARGV[0], 'r:UTF-8')
-input_template_file = File.open(ARGV[1], 'r:UTF-8')
-stop_words_file = File.open('stopwords.txt', 'r:UTF-8')
+#input_json_file = File.open(ARGV[0], 'r:UTF-8')
+#input_template_file = File.open(ARGV[1], 'r:UTF-8')
+#stop_words_file = File.open('stopwords.txt', 'r:UTF-8')
 
-hansard_viz = HansardViz.new({ json_hansard: input_json_file,
-                      erb_template: input_template_file,
-                      stop_words: stop_words_file })
+#hansard_viz = HansardViz.new({ json_hansard: input_json_file,
+                      #erb_template: input_template_file,
+                      #stop_words: stop_words_file })
 
-puts hansard_viz.render
+#puts hansard_viz.render
 
