@@ -10,7 +10,6 @@ class HansardViz
     @stopwords        = files[:stop_words].readlines.map { |line| line.chop }
     @hansard          = process(files[:json_hansard])
     @template         = files[:erb_template].read
-    @output_html_file = files[:html_dataviz]
   end
 
   def process(file)
@@ -30,10 +29,10 @@ class HansardViz
     speaker_words = {}
     attendees.each { |attendee| speaker_words[attendee] = {} }
     sections.each do |section|
-        spoken = section['spoken']
-        all_words += ' ' + spoken
-        speaker_words[section['name']]['all_words'] = ""  unless speaker_words[section['name']]['all_words']
-        speaker_words[section['name']]['all_words'] += spoken
+      spoken = section['spoken']
+      all_words += ' ' + spoken
+      speaker_words[section['name']]['all_words'] = ""  unless speaker_words[section['name']]['all_words']
+      speaker_words[section['name']]['all_words'] += spoken
     end
     speakers = []
     speaker_words.each do |speaker, data|
@@ -41,33 +40,30 @@ class HansardViz
                     'all_words_counted' => WordsCounted.count(data['all_words']) } #, exclude: @stopwords) }
     end
     { 'speakers' => speakers.sort { |a, b| b['all_words_counted'].word_count <=> a['all_words_counted'].word_count },
-      'all_words_counted' => WordsCounted.count(all_words, exclude: @stopwords) }
+      'all_words_counted' => WordsCounted.count(all_words), #, exclude: @stopwords),
+      'capitalized_phrases' => all_words.scan(/([A-Z][\w-]*(\s+[A-Z][\w-]+)+)/).map{|i| [i.first, all_words.scan(i.first).size] }.uniq{|s| s.first}.select{|s| !attendees.include?(s.first)}.sort{|a,b| b.last <=> a.last},
+      'by_laws' => all_words.scan(/\d+\/\d{4}/).uniq.map{|i| [i, all_words.scan(i).size]}.sort{|a,b| b.last <=> a.last}
+    }
   end
 
   def render
     ERB.new(@template).result(binding)
   end
-
-  def save
-    @output_html_file.write(render)
-  end
 end
 
-if ARGV.size != 3
+if ARGV.size != 2
   puts 'Missing required arguments.'
-  puts "Example: #{$PROGRAM_NAME} input.json template.erb output.html"
+  puts "Example: #{$PROGRAM_NAME} input.json template.erb"
   exit
 end
 
 input_json_file = File.open(ARGV[0], 'r:UTF-8')
 input_template_file = File.open(ARGV[1], 'r:UTF-8')
-output_html_file = File.open(ARGV[2], 'w:UTF-8')
 stop_words_file = File.open('stopwords.txt', 'r:UTF-8')
 
 hansard_viz = HansardViz.new({ json_hansard: input_json_file,
                       erb_template: input_template_file,
-                      html_dataviz: output_html_file,
                       stop_words: stop_words_file })
 
-hansard_viz.save
+puts hansard_viz.render
 

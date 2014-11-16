@@ -15,7 +15,23 @@
             <h2>Frequently Used Terms</h2>
             <ul>
             <% @hansard['meta']['words_spoken']['all_words_counted'].sorted_word_occurrences.take(20).each do |word| %>
-                <li><%= word.first.capitalize %></li>
+                <li><%= word.first.capitalize %> - <%= word.last %></li>
+            <% end %>
+            </ul>
+        </section>
+        <section class="capitalized-phrase">
+            <h2>Common Capitalized Phrases</h2>
+            <ul>
+            <% @hansard['meta']['words_spoken']['capitalized_phrases'].take(20).each do |phrase| %>
+                <li><%= phrase.first %> - <%= phrase.last %></li>
+            <% end %>
+            </ul>
+        </section>
+        <section class="by-laws">
+            <h2>By Laws Mentioned</h2>
+            <ul>
+            <% @hansard['meta']['words_spoken']['by_laws'].each do |by_law| %>
+                <li><%= by_law.first %> - <%= by_law.last %></li>
             <% end %>
             </ul>
         </section>
