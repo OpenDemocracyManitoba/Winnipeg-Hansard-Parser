@@ -3,7 +3,8 @@
 
 guard :rspec do
   watch(%r{^spec/.+_spec\.rb$})
-  watch('spec/spec_helper.rb')  { "spec" }
-  watch('visualize_hansard.rb') { "spec" }
+  watch('spec/spec_helper.rb')  { 'spec' }
+  watch('visualize_hansard.rb') { 'spec' }
+  watch('hansard_viz/template.erb') { 'spec' }
 end
 
