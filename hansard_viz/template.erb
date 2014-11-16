@@ -11,6 +11,22 @@
         <header>
             <h1><%= @hansard['meta']['date'] %> Winipeg Council Meeting</h1>
         </header>
+        <section class="top-words">
+            <h2>Frequently Used Terms</h2>
+            <ul>
+            <% @hansard['meta']['words_spoken']['all_words_counted'].sorted_word_occurrences.take(20).each do |word| %>
+                <li><%= word.first.capitalize %></li>
+            <% end %>
+            </ul>
+        </section>
+        <section class="attendnce">
+            <h2>Attendance & Participation</h2>
+            <ul>
+            <% @hansard['meta']['words_spoken']['speakers'].each do |speaker| %>
+                <li><%= speaker['name'] %> - <%= speaker['all_words_counted'].word_count %></li>
+            <% end %>
+            </ul>
+        </section>
         <ul class='sections'>
             <% @hansard['hansard'].each do |section| %>
                 <li class="section <%= section['type'] %>">
