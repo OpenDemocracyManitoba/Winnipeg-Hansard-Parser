@@ -6,7 +6,7 @@ describe HansardViz do
     erb_template = erb_template_from_file('./hansard_viz/template.erb')
     @golden_master = open_file('./spec/fixtures/2014-06-25_regular.html').read
 
-    hansard = Hansard.process_json(json_hansard: json_hansard)
+    hansard = Hansard.new(json_hansard: json_hansard)
     @hansard_viz = HansardViz.new( erb_template: erb_template,
                                    hansard_data: hansard)
   end

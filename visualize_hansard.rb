@@ -37,8 +37,8 @@ if ARGV.size == 2
   erb_template = erb_template_from_file(ARGV[1])
   stop_words = stopwords_from_file('./stopwords.txt')
 
-  hansard = Hansard.process_json(json_hansard: json_hansard,
-                                 stop_words: stop_words)
+  hansard = Hansard.new(json_hansard: json_hansard,
+                        stop_words:   stop_words)
 
 
   hansard_viz = HansardViz.new( erb_template: erb_template,

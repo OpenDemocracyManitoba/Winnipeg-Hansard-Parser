@@ -3,18 +3,18 @@
 <head>
     <meta charset="utf-8">
     <!-- <meta http-equiv="refresh" content="4"> -->
-    <title><%= @hansard['meta']['date'] %> Winipeg Council Meeting</title>
+    <title><%= @hansard.date_of_meeting %> Winipeg Council Meeting</title>
     <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 </head>
 <body>
     <div id="wrap">
         <header>
-            <h1><%= @hansard['meta']['date'] %> Winipeg Council Meeting</h1>
+            <h1><%= @hansard.date_of_meeting %> Winipeg Council Meeting</h1>
         </header>
         <section class="top-words">
             <h2>Frequently Used Terms</h2>
             <ul>
-            <% @hansard['meta']['words_spoken']['all_words_counted'].sorted_word_occurrences.take(20).each do |word| %>
+            <% @hansard.sorted_word_occurrences.take(20).each do |word| %>
                 <li><%= word.first.capitalize %> - <%= word.last %></li>
             <% end %>
             </ul>
@@ -22,7 +22,7 @@
         <section class="capitalized-phrase">
             <h2>Common Capitalized Phrases</h2>
             <ul>
-            <% @hansard['meta']['words_spoken']['capitalized_phrases'].take(20).each do |phrase| %>
+            <% @hansard.capitalized_phrases.take(20).each do |phrase| %>
                 <li><%= phrase.first %> - <%= phrase.last %></li>
             <% end %>
             </ul>
@@ -30,7 +30,7 @@
         <section class="by-laws">
             <h2>By Laws Mentioned</h2>
             <ul>
-            <% @hansard['meta']['words_spoken']['by_laws'].each do |by_law| %>
+            <% @hansard.by_laws_mentioned.each do |by_law| %>
                 <li><%= by_law.first %> - <%= by_law.last %></li>
             <% end %>
             </ul>
@@ -38,7 +38,7 @@
         <section class="attendnce">
             <h2>Attendance &amp; Participation</h2>
             <ul>
-            <% @hansard['meta']['words_spoken']['speakers'].each do |speaker| %>
+            <% @hansard.words_spoken['speakers'].each do |speaker| %>
                 <li><%= speaker['name'] %> - <%= speaker['all_words_counted'].word_count %></li>
             <% end %>
             </ul>
