@@ -25,8 +25,8 @@ class Hansard
     end.sort{ |a, b| b['count'] <=> a['count']}
   end
 
-  def by_laws_mentioned
-    all_words.scan(BY_LAW_REGEX).uniq.map{|i| [i, all_words.scan(i).size]}.sort{|a,b| b.last <=> a.last}
+  def sorted_by_laws_mentioned
+    by_laws_mentioned.sort{ |a, b| b['count'] <=> a['count']}
   end
 
   def speakers_sorted_by_counted_words
@@ -36,16 +36,6 @@ class Hansard
   end
 
   private
-  def all_capitalized_phrases
-    all_words.scan(CAPITALIZED_PHRASE_REGEX).map(&:first).uniq
-  end
-
-  def all_capitalized_phrases_minus_attendees
-    all_capitalized_phrases.select do |phrase|
-      !attendance_with_guests.include?(phrase)
-    end
-  end
-
   def sections_of_type(section_type)
     @hansard_data['hansard'].select { |section| section['type'] == section_type }
   end
@@ -70,7 +60,6 @@ class Hansard
     WordsCounted.count(all_words, exclude: @stop_words)
   end
 
-
   def all_words_by_speaker
     @all_words_by_seaker ||= speaker_sections.reduce(Hash.new('')) do |h, section|
       h[section['name']] += section['spoken']
@@ -81,6 +70,22 @@ class Hansard
   def counted_words_by_speaker
     @counted_words_by_speaker ||= all_words_by_speaker.each_with_object({}) do |(k, v), h|
       h[k] = WordsCounted.count(v, exclude: @stop_words)
+    end
+  end
+
+  def by_laws_mentioned
+    all_words.scan(BY_LAW_REGEX).uniq.map do |by_law|
+      { 'identifier' => by_law, 'count' => all_words.scan(by_law).size }
+    end
+  end
+
+  def all_capitalized_phrases
+    all_words.scan(CAPITALIZED_PHRASE_REGEX).map(&:first).uniq
+  end
+
+  def all_capitalized_phrases_minus_attendees
+    all_capitalized_phrases.select do |phrase|
+      !attendance_with_guests.include?(phrase)
     end
   end
 end

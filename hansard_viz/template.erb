@@ -30,8 +30,8 @@
         <section class="by-laws">
             <h2>By Laws Mentioned</h2>
             <ul>
-            <% @hansard.by_laws_mentioned.each do |by_law| %>
-                <li><%= by_law.first %> - <%= by_law.last %></li>
+            <% @hansard.sorted_by_laws_mentioned.each do |by_law| %>
+                <li><%= by_law['identifier'] %> - <%= by_law['count'] %></li>
             <% end %>
             </ul>
         </section>
