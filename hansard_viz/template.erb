@@ -38,8 +38,8 @@
         <section class="attendnce">
             <h2>Attendance &amp; Participation</h2>
             <ul>
-            <% @hansard.words_spoken['speakers'].each do |speaker| %>
-                <li><%= speaker['name'] %> - <%= speaker['all_words_counted'].word_count %></li>
+            <% @hansard.speakers_sorted_by_counted_words.each do |speaker| %>
+                <li><%= speaker[0] %> - <%= speaker[1].word_count %></li>
             <% end %>
             </ul>
         </section>

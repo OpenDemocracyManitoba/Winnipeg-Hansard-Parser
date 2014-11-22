@@ -13,19 +13,19 @@ class Hansard
   end
 
   def sorted_word_occurrences
-    words_spoken['all_words_counted'].sorted_word_occurrences
+    all_words_counted.sorted_word_occurrences
   end
 
   def capitalized_phrases
-    words_spoken['capitalized_phrases']
+    all_words.scan(/([A-Z][\w-]*(\s+[A-Z][\w-]+)+)/).map{|i| [i.first, all_words.scan(i.first).size] }.uniq{|s| s.first}.select{|s| !attendance_with_guests.include?(s.first)}.sort{|a,b| b.last <=> a.last}
   end
 
   def by_laws_mentioned
-    words_spoken['by_laws']
+    all_words.scan(/\d+\/\d{4}/).uniq.map{|i| [i, all_words.scan(i).size]}.sort{|a,b| b.last <=> a.last}
   end
 
-  def words_spoken
-    @words_spoken ||= analyses_words(speaker_sections, attendance_with_guests)
+  def speakers_sorted_by_counted_words
+    counted_words_by_speaker.sort_by { |name, counted_words| counted_words.word_count }.reverse
   end
 
   private
@@ -34,32 +34,29 @@ class Hansard
   end
 
   def speaker_sections
-    sections_of_type('speaker')
+    @speaker_sections ||= sections_of_type('speaker')
   end
 
   def attendance_with_guests
-    speaker_sections.map { |section| section['name'] }.uniq
+    @attendance_with_guests ||= speaker_sections.map { |section| section['name'] }.uniq
   end
 
-  def analyses_words(sections, attendees)
-    all_words = ''
-    speaker_words = {}
-    attendees.each { |attendee| speaker_words[attendee] = {} }
-    sections.each do |section|
-      spoken = section['spoken']
-      all_words += ' ' + spoken
-      speaker_words[section['name']]['all_words'] = ""  unless speaker_words[section['name']]['all_words']
-      speaker_words[section['name']]['all_words'] += spoken
+  def all_words
+    @all_words ||= speaker_sections.reduce('') { |all_words, speaker_section| all_words + speaker_section['spoken'] }
+  end
+
+  def all_words_counted
+    WordsCounted.count(all_words, exclude: @stop_words)
+  end
+
+
+  def all_words_by_speaker
+    @all_words_by_seaker ||= speaker_sections.reduce(Hash.new('')) { |h, section| h[section['name']] += section['spoken']; h }
+  end
+
+  def counted_words_by_speaker
+    @counted_words_by_speaker ||= all_words_by_speaker.each_with_object({}) do |(k, v), h|
+      h[k] = WordsCounted.count(v, exclude: @stop_words)
     end
-    speakers = []
-    speaker_words.each do |speaker, data|
-      speakers << { 'name' => speaker,
-                    'all_words_counted' => WordsCounted.count(data['all_words'] , exclude: @stop_words) }
-    end
-    { 'speakers' => speakers.sort { |a, b| b['all_words_counted'].word_count <=> a['all_words_counted'].word_count },
-      'all_words_counted' => WordsCounted.count(all_words, exclude: @stop_words),
-      'capitalized_phrases' => all_words.scan(/([A-Z][\w-]*(\s+[A-Z][\w-]+)+)/).map{|i| [i.first, all_words.scan(i.first).size] }.uniq{|s| s.first}.select{|s| !attendees.include?(s.first)}.sort{|a,b| b.last <=> a.last},
-      'by_laws' => all_words.scan(/\d+\/\d{4}/).uniq.map{|i| [i, all_words.scan(i).size]}.sort{|a,b| b.last <=> a.last}
-    }
   end
 end
