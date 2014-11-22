@@ -22,8 +22,8 @@
         <section class="capitalized-phrase">
             <h2>Common Capitalized Phrases</h2>
             <ul>
-            <% @hansard.capitalized_phrases.take(20).each do |phrase| %>
-                <li><%= phrase.first %> - <%= phrase.last %></li>
+            <% @hansard.sorted_capitalized_phrases.take(20).each do |capitalized_phrase| %>
+                <li><%= capitalized_phrase['phrase'] %> - <%= capitalized_phrase['count'] %></li>
             <% end %>
             </ul>
         </section>
@@ -39,7 +39,7 @@
             <h2>Attendance &amp; Participation</h2>
             <ul>
             <% @hansard.speakers_sorted_by_counted_words.each do |speaker| %>
-                <li><%= speaker[0] %> - <%= speaker[1].word_count %></li>
+                <li><%= speaker['name'] %> - <%= speaker['word_count'] %></li>
             <% end %>
             </ul>
         </section>
