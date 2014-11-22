@@ -2,17 +2,13 @@ require 'spec_helper'
 
 describe HansardViz do
   before(:all) do
-    input_json_file = File.open('./hansard_json/2014-06-25_regular.json', 'r:UTF-8')
-    input_template_file = File.open('./hansard_viz/template.erb', 'r:UTF-8')
-    stop_words_file = File.open('./stopwords.txt', 'r:UTF-8')
-    @golden_master = File.open('./spec/fixtures/2014-06-25_regular.html').read
+    json_hansard = json_hansard_from_file('./hansard_json/2014-06-25_regular.json')
+    erb_template = erb_template_from_file('./hansard_viz/template.erb')
+    @golden_master = open_file('./spec/fixtures/2014-06-25_regular.html').read
 
-    hansard = Hansard.process_json(json_hansard: input_json_file,
-                                  stop_words: stop_words_file)
-
-
-    @hansard_viz = HansardViz.new( erb_template: input_template_file,
-                                   hansard_data:  hansard)
+    hansard = Hansard.process_json(json_hansard: json_hansard)
+    @hansard_viz = HansardViz.new( erb_template: erb_template,
+                                   hansard_data: hansard)
   end
 
   it 'should correctly initialize as a HansardViz object' do

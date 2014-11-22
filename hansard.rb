@@ -1,8 +1,8 @@
 class Hansard
 
   def self.process_json(options)
-    hansard_data = JSON.parse(options[:json_hansard].read)
-    @stop_words =  options[:stop_words].readlines.map(&:chop) 
+    hansard_data = options[:json_hansard]
+    @stop_words =  options[:stop_words]
     speaker_sections = hansard_data['hansard'].select { |section| section['type'] == 'speaker' }
     attendance_with_guests = attendance_with_guests(speaker_sections)
     hansard_data['meta']['words_spoken'] = analyses_words(speaker_sections, attendance_with_guests)
@@ -26,10 +26,10 @@ class Hansard
     speakers = []
     speaker_words.each do |speaker, data|
       speakers << { 'name' => speaker,
-                    'all_words_counted' => WordsCounted.count(data['all_words']) } # , exclude: @stopwords) }
+                    'all_words_counted' => WordsCounted.count(data['all_words'] , exclude: @stop_words) }
     end
     { 'speakers' => speakers.sort { |a, b| b['all_words_counted'].word_count <=> a['all_words_counted'].word_count },
-      'all_words_counted' => WordsCounted.count(all_words), # , exclude: @stopwords),
+      'all_words_counted' => WordsCounted.count(all_words, exclude: @stop_words),
       'capitalized_phrases' => all_words.scan(/([A-Z][\w-]*(\s+[A-Z][\w-]+)+)/).map{|i| [i.first, all_words.scan(i.first).size] }.uniq{|s| s.first}.select{|s| !attendees.include?(s.first)}.sort{|a,b| b.last <=> a.last},
       'by_laws' => all_words.scan(/\d+\/\d{4}/).uniq.map{|i| [i, all_words.scan(i).size]}.sort{|a,b| b.last <=> a.last}
     }

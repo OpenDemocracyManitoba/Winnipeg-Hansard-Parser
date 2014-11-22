@@ -7,7 +7,7 @@ class HansardViz
   include ERB::Util
 
   def initialize(options)
-    @template = options[:erb_template].read
+    @template = options[:erb_template]
     @hansard = options[:hansard_data]
   end
 
@@ -16,17 +16,32 @@ class HansardViz
   end
 end
 
-if ARGV.size == 2
-  input_json_file = File.open(ARGV[0], 'r:UTF-8')
-  input_template_file = File.open(ARGV[1], 'r:UTF-8')
-  stop_words_file = File.open('stopwords.txt', 'r:UTF-8')
-    @stopwords        = files[:stop_words].readlines.map(&:chop)
-    @hansard          = Hansard.process_json(files[:json_hansard])
-
-  hansard_viz = HansardViz.new(json_hansard: hansard,
-                               erb_template: input_template_file,
-                               stop_words: stop_words_file)
-
-  puts hansard_viz.render
+def open_file(filename) 
+  File.open(filename, 'r:UTF-8')
 end
 
+def json_hansard_from_file(filename)
+  JSON.parse(open_file(filename).read)
+end
+
+def stopwords_from_file(filename)
+  open_file(filename).readlines.map(&:chop) 
+end
+
+def erb_template_from_file(filename)
+  open_file(filename).read
+end
+
+if ARGV.size == 2
+  json_hansard = json_hansard_from_file(ARGV[0])
+  erb_template = erb_template_from_file(ARGV[1])
+  stop_words = stopwords_from_file('./stopwords.txt')
+
+  hansard = Hansard.process_json(json_hansard: json_hansard,
+                                 stop_words: stop_words)
+
+
+  hansard_viz = HansardViz.new( erb_template: erb_template,
+                                hansard_data: hansard)
+  puts hansard_viz.render
+end
