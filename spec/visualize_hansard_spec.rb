@@ -7,9 +7,12 @@ describe HansardViz do
     stop_words_file = File.open('./stopwords.txt', 'r:UTF-8')
     @golden_master = File.open('./spec/fixtures/2014-06-25_regular.html').read
 
-    @hansard_viz = HansardViz.new({ json_hansard: input_json_file,
-                          erb_template: input_template_file,
-                          stop_words: stop_words_file })
+    hansard = Hansard.process_json(json_hansard: input_json_file,
+                                  stop_words: stop_words_file)
+
+
+    @hansard_viz = HansardViz.new( erb_template: input_template_file,
+                                   hansard_data:  hansard)
   end
 
   it 'should correctly initialize as a HansardViz object' do
