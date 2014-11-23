@@ -23,15 +23,15 @@
             <h2>Common Capitalized Phrases</h2>
             <ul>
             <% @hansard.sorted_capitalized_phrases.take(20).each do |capitalized_phrase| %>
-                <li><%= capitalized_phrase['phrase'] %> - <%= capitalized_phrase['count'] %></li>
+                <li><%= capitalized_phrase['mention'] %> - <%= capitalized_phrase['count'] %></li>
             <% end %>
             </ul>
         </section>
         <section class="by-laws">
             <h2>By Laws Mentioned</h2>
             <ul>
-            <% @hansard.sorted_by_laws_mentioned.each do |by_law| %>
-                <li><%= by_law['identifier'] %> - <%= by_law['count'] %></li>
+            <% @hansard.sorted_by_laws.each do |by_law| %>
+                <li><%= by_law['mention'] %> - <%= by_law['count'] %></li>
             <% end %>
             </ul>
         </section>
@@ -44,7 +44,7 @@
             </ul>
         </section>
         <ul class='sections'>
-            <% @hansard['hansard'].each do |section| %>
+            <% @hansard.all_sections.each do |section| %>
                 <li class="section <%= section['type'] %>">
                     <% if section['type'] == 'section' %> 
                         <h2><%= section['name'] %></h2>
