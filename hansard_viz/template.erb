@@ -15,22 +15,22 @@
             <h2>Frequently Used Terms</h2>
             <ul>
             <% @hansard.sorted_word_occurrences.take(20).each do |word| %>
-                <li><%= word.first.capitalize %> - <%= word.last %></li>
+                <li><%= word['mention'].capitalize %> - <%= word['count'] %></li>
             <% end %>
             </ul>
         </section>
         <section class="capitalized-phrase">
             <h2>Common Capitalized Phrases</h2>
             <ul>
-            <% @hansard.sorted_capitalized_phrases.take(20).each do |capitalized_phrase| %>
-                <li><%= capitalized_phrase['mention'] %> - <%= capitalized_phrase['count'] %></li>
+            <% @hansard.capitalized_phrases_counted.take(20).each do |capitalized_phrase| %>
+                <li><%= capitalized_phrase['mention'].split.map(&:capitalize).join(' ') %> - <%= capitalized_phrase['count'] %></li>
             <% end %>
             </ul>
         </section>
         <section class="by-laws">
             <h2>By Laws Mentioned</h2>
             <ul>
-            <% @hansard.sorted_by_laws.each do |by_law| %>
+            <% @hansard.by_laws_counted.each do |by_law| %>
                 <li><%= by_law['mention'] %> - <%= by_law['count'] %></li>
             <% end %>
             </ul>

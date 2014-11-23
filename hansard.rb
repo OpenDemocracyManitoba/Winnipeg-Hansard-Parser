@@ -1,10 +1,11 @@
 class Hansard
   BY_LAW_REGEX = /\d+\/\d{4}/
   CAPITALIZED_PHRASE_REGEX = /([A-Z][\w-]*(?:\s+[A-Z][\w-]+)+)/
+  WORD_REGEX = /[\p{Alpha}\-']+/
 
   def initialize(options)
     @hansard_data = options[:json_hansard]
-    @stop_words =  options[:stop_words]
+    @stop_words =  options[:stop_words] || []
   end
 
   def all_sections
@@ -16,15 +17,15 @@ class Hansard
   end
 
   def sorted_word_occurrences
-    all_words_counted.sorted_word_occurrences
+    Mentions.count(all_words, WORD_REGEX, @stop_words)
   end
 
-  def sorted_capitalized_phrases
-    capitalized_phrases_counted
+  def by_laws_counted
+    Mentions.count(all_words, BY_LAW_REGEX)
   end
 
-  def sorted_by_laws
-    by_laws_counted
+  def capitalized_phrases_counted
+    Mentions.count(all_words, CAPITALIZED_PHRASE_REGEX, attendance_with_guests)
   end
 
   def speakers_sorted_by_counted_words
@@ -54,10 +55,6 @@ class Hansard
     end
   end
 
-  def all_words_counted
-    WordsCounted.count(all_words, exclude: @stop_words)
-  end
-
   def all_words_by_speaker
     @all_words_by_seaker ||= speaker_sections.reduce(Hash.new('')) do |h, section|
       h[section['name']] += section['spoken']
@@ -70,21 +67,13 @@ class Hansard
       h[k] = WordsCounted.count(v, exclude: @stop_words)
     end
   end
-
-  def by_laws_counted
-    Mentions.count(all_words, BY_LAW_REGEX)
-  end
-
-  def capitalized_phrases_counted
-    Mentions.count(all_words, CAPITALIZED_PHRASE_REGEX, attendance_with_guests)
-  end
 end
 
 class Mentions
   def initialize(all_words, regex, excludes = [])
     @all_words = all_words
     @regex = regex
-    @excludes = excludes
+    @excludes = excludes.map(&:downcase)
   end
 
   def self.count(all_words, regex, excludes = [])
@@ -93,15 +82,20 @@ class Mentions
 
   def mentions_counted_and_sorted
     unique_mentions.map do |mention|
-      { 'mention' => mention, 'count' => @all_words.scan(mention).size }
+      { 'mention' => mention, 'count' => mentions.count { |m| m == mention } }
     end.sort{ |a, b| b['count'] <=> a['count']}
   end
 
   private
   def unique_mentions
-    all = @all_words.scan(@regex).uniq
-    all = remove_one_level_of_array_nesting(all)
-    all.reject { |mention| @excludes.include?(mention) }
+    @unique_mentions ||= mentions.uniq
+  end
+
+  def mentions
+    return @mentions  if @mentions
+    @mentions = @all_words.scan(@regex)
+    @mentions = remove_one_level_of_array_nesting(@mentions)
+    @mentions = @mentions.map(&:downcase).reject { |mention| @excludes.include?(mention.downcase) }
   end
 
   def remove_one_level_of_array_nesting(object)
