@@ -56,9 +56,8 @@ class Hansard
   end
 
   def all_words_by_speaker
-    @all_words_by_seaker ||= speaker_sections.reduce(Hash.new('')) do |h, section|
+    @all_words_by_seaker ||= speaker_sections.each_with_object(Hash.new('')) do |section, h|
       h[section['name']] += section['spoken']
-      h
     end
   end
 
