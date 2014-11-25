@@ -70,7 +70,7 @@ class Hansard
 
   def counted_words_by_speaker
     @counted_words_by_speaker ||= all_words_by_speaker.each_with_object({}) do |(k, v), h|
-      h[k] = PatternCounter.new(v, WORD_REGEX).number_of_matches
+      h[k] = PatternCounter.new(v, WORD_REGEX).matches.size
     end
   end
 end

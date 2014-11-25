@@ -9,13 +9,9 @@ class PatternCounter
     return @matches  if @matches
     @matches = @all_words.scan(@regex)
     @matches = remove_one_level_of_array_nesting(@matches)
-    @matches = @matches.map(&:downcase).reject do |mention| 
+    @matches = @matches.map(&:downcase).reject do |mention|
       @excludes.include?(mention.downcase)
     end
-  end
-
-  def number_of_matches
-    matches.size
   end
 
   def unique_matches
@@ -24,8 +20,8 @@ class PatternCounter
 
   def counted_and_sorted
     unique_matches.map do |match|
-      { 'mention' => match, 'count' => matches.count { |m| m == match } }
-    end.sort{ |a, b| b['count'] <=> a['count']}
+      [match, matches.count { |m| m == match }]
+    end.sort{ |a, b| b.last <=> a.last}
   end
 
   private

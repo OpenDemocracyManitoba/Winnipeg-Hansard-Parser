@@ -15,7 +15,7 @@
             <h2>Frequently Used Terms</h2>
             <ul>
             <% @data.sorted_word_occurrences.take(20).each do |word| %>
-                <li><%= word['mention'].capitalize %> - <%= word['count'] %></li>
+                <li><%= word.first.capitalize %> - <%= word.last %></li>
             <% end %>
             </ul>
         </section>
@@ -23,7 +23,7 @@
             <h2>Common Capitalized Phrases</h2>
             <ul>
             <% @data.capitalized_phrases_counted.take(20).each do |capitalized_phrase| %>
-                <li><%= capitalized_phrase['mention'].split.map(&:capitalize).join(' ') %> - <%= capitalized_phrase['count'] %></li>
+                <li><%= capitalized_phrase.first.split.map(&:capitalize).join(' ') %> - <%= capitalized_phrase.last %></li>
             <% end %>
             </ul>
         </section>
@@ -31,7 +31,7 @@
             <h2>By Laws Mentioned</h2>
             <ul>
             <% @data.by_laws_counted.each do |by_law| %>
-                <li><%= by_law['mention'] %> - <%= by_law['count'] %></li>
+                <li><%= by_law.first %> - <%= by_law.last %></li>
             <% end %>
             </ul>
         </section>

@@ -6,7 +6,7 @@ guard :rspec do
   watch('spec/spec_helper.rb')  { 'spec' }
   watch('hansard_viz/erb_binding.rb') { 'spec' }
   watch('hansard_viz/hansard.rb') { 'spec' }
-  watch('hansard_viz/pattern_counter.rb') { 'spec' }
+  watch('hansard_viz/pattern_counter.rb') { 'spec/pattern_counter_spec.rb' }
   watch('hansard_viz/template.erb') { 'spec' }
 end
 
