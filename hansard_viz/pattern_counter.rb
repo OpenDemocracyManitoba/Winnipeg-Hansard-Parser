@@ -5,16 +5,6 @@ class PatternCounter
     @excludes = excludes.map(&:downcase)
   end
 
-  def counted_and_sorted
-    unique_matches.map do |match|
-      { 'mention' => match, 'count' => matches.count { |m| m == match } }
-    end.sort{ |a, b| b['count'] <=> a['count']}
-  end
-
-  def unique_matches
-    @unique_matches ||= matches.uniq
-  end
-
   def matches
     return @matches  if @matches
     @matches = @all_words.scan(@regex)
@@ -26,6 +16,16 @@ class PatternCounter
 
   def number_of_matches
     matches.size
+  end
+
+  def unique_matches
+    @unique_matches ||= matches.uniq
+  end
+
+  def counted_and_sorted
+    unique_matches.map do |match|
+      { 'mention' => match, 'count' => matches.count { |m| m == match } }
+    end.sort{ |a, b| b['count'] <=> a['count']}
   end
 
   private
