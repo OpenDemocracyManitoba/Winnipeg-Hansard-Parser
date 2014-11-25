@@ -19,10 +19,15 @@ class PatternCounter
   end
 
   def counted_and_sorted
-    unique_matches.map do |match|
-      [match, matches.count { |m| m == match }]
-    end.sort{ |a, b| b.last <=> a.last}
+    unique_matches_counted.sort{ |a, b| b.last <=> a.last}
   end
+
+  def unique_matches_counted
+    matches.each_with_object(Hash.new(0)) do |match, h|
+      h[match] += 1
+    end
+  end
+
 
   private
   def remove_one_level_of_array_nesting(object)
