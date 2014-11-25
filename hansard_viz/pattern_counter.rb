@@ -6,16 +6,15 @@ class PatternCounter
   end
 
   def matches
-    return @matches  if @matches
-    @matches = @all_words.scan(@regex)
-    @matches = remove_one_level_of_array_nesting(@matches)
-    @matches = @matches.map(&:downcase).reject do |mention|
+    matches = @all_words.scan(@regex)
+    matches = remove_one_level_of_array_nesting(matches)
+    matches.reject do |mention|
       @excludes.include?(mention.downcase)
     end
   end
 
   def unique_matches
-    @unique_matches ||= matches.uniq
+    unique_matches_counted.keys
   end
 
   def counted_and_sorted
@@ -24,7 +23,7 @@ class PatternCounter
 
   def unique_matches_counted
     matches.each_with_object(Hash.new(0)) do |match, h|
-      h[match] += 1
+      h[match.downcase] += 1
     end
   end
 
