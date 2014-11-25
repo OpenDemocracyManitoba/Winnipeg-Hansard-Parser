@@ -11,7 +11,7 @@ describe ErbBinding do
                                     data_to_bind: hansard)
   end
 
-  it 'should correctly initialize as a ErbTemplater object' do
+  it 'should correctly initialize as an ErbTemplater object' do
     expect(@hansard_viz.class).to eq(ErbBinding)
   end
 
