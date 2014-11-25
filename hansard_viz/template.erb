@@ -23,7 +23,7 @@
             <h2>Common Capitalized Phrases</h2>
             <ul>
             <% @data.capitalized_phrases_counted.take(20).each do |capitalized_phrase| %>
-                <li><%= capitalized_phrase.first.split.map(&:capitalize).join(' ') %> - <%= capitalized_phrase.last %></li>
+                <li><%= capitalized_phrase.first %> - <%= capitalized_phrase.last %></li>
             <% end %>
             </ul>
         </section>

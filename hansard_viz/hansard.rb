@@ -31,6 +31,9 @@ class Hansard
   def capitalized_phrases_counted
     PatternCounter.new(all_words, CAPITALIZED_PHRASE_REGEX, attendance_with_guests)
                   .counted_and_sorted
+                  .map do |phrase, count| # Re-Capitalize Phrases
+                    [phrase.split.map(&:capitalize).join(' '), count]
+                  end
   end
 
   def speakers_sorted_by_counted_words
