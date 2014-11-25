@@ -16,6 +16,6 @@ hansard        = Hansard.new(json_hansard: json_hansard,
                              stop_words:   stop_words)
 
 generated_html = ErbBinding.new(erb_template: erb_template,
-                                  data_to_bind: hansard)
+                                data_to_bind: hansard)
 
 puts generated_html.render

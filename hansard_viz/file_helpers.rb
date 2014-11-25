@@ -15,5 +15,3 @@ end
 def erb_template_from_file(filename)
   open_file(filename).read
 end
-
-

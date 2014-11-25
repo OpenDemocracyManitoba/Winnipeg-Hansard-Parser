@@ -8,7 +8,7 @@ class ErbBinding
     @data     = options[:data_to_bind]
   end
 
-   def render
+  def render
     ERB.new(@template).result(binding)
   end
 end

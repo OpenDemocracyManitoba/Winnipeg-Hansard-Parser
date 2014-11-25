@@ -14,7 +14,7 @@ class PatternCounter
   end
 
   def unique_matches_sorted
-    unique_matches_counted.sort{ |a, b| b.last <=> a.last}
+    unique_matches_counted.sort { |a, b| b.last <=> a.last }
   end
 
   def unique_matches_counted
@@ -28,6 +28,7 @@ class PatternCounter
   end
 
   private
+
   def remove_one_level_of_array_nesting(object)
     object.first.is_a?(Array) ? object.map(&:first) : object
   end
