@@ -27,7 +27,6 @@ class PatternCounter
     end
   end
 
-
   private
   def remove_one_level_of_array_nesting(object)
     object.first.is_a?(Array) ? object.map(&:first) : object
