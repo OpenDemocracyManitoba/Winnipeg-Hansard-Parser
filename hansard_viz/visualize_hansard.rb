@@ -1,7 +1,6 @@
 require 'json'
 require 'erb'
 require 'words_counted'
-require './hansard.rb'
 
 class HansardViz
   include ERB::Util
@@ -16,7 +15,7 @@ class HansardViz
   end
 end
 
-def open_file(filename) 
+def open_file(filename)
   File.open(filename, 'r:UTF-8')
 end
 
@@ -25,7 +24,7 @@ def json_hansard_from_file(filename)
 end
 
 def stopwords_from_file(filename)
-  open_file(filename).readlines.map(&:chop) 
+  open_file(filename).readlines.map(&:chop)
 end
 
 def erb_template_from_file(filename)
