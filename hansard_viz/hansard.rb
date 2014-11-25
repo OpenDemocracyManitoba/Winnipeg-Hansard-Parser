@@ -20,17 +20,17 @@ class Hansard
 
   def sorted_word_occurrences
     PatternCounter.new(all_words, WORD_REGEX, @stop_words)
-                  .counted_and_sorted
+                  .unique_matches_sorted
   end
 
   def by_laws_counted
     PatternCounter.new(all_words, BY_LAW_REGEX)
-                  .counted_and_sorted
+                  .unique_matches_sorted
   end
 
   def capitalized_phrases_counted
     PatternCounter.new(all_words, CAPITALIZED_PHRASE_REGEX, attendance_with_guests)
-                  .counted_and_sorted
+                  .unique_matches_sorted
                   .map do |phrase, count| # Re-Capitalize Phrases
                     [phrase.split.map(&:capitalize).join(' '), count]
                   end

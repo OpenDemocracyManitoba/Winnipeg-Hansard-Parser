@@ -25,7 +25,7 @@ describe PatternCounter do
   end
 
   it 'should correctly count and sort unique matches' do
-    expect(@word_counter.counted_and_sorted).to eq([['this', 2],
+    expect(@word_counter.unique_matches_sorted).to eq([['this', 2],
                                                     ['is', 2],
                                                     ['that', 2],
                                                     ['and', 1]])

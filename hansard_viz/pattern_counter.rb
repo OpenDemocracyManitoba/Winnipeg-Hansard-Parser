@@ -13,11 +13,7 @@ class PatternCounter
     end
   end
 
-  def unique_matches
-    unique_matches_counted.keys
-  end
-
-  def counted_and_sorted
+  def unique_matches_sorted
     unique_matches_counted.sort{ |a, b| b.last <=> a.last}
   end
 
@@ -25,6 +21,10 @@ class PatternCounter
     matches.each_with_object(Hash.new(0)) do |match, h|
       h[match.downcase] += 1
     end
+  end
+
+  def unique_matches
+    unique_matches_counted.keys
   end
 
   private
