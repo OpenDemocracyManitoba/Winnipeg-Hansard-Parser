@@ -1,3 +1,5 @@
+require 'words_counted'
+
 class Hansard
   BY_LAW_REGEX = /\d+\/\d{4}/
   CAPITALIZED_PHRASE_REGEX = /([A-Z][\w-]*(?:\s+[A-Z][\w-]+)+)/
