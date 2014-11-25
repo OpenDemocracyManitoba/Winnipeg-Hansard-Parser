@@ -39,7 +39,7 @@
             <h2>Attendance &amp; Participation</h2>
             <ul>
             <% @data.speakers_sorted_by_counted_words.each do |speaker| %>
-                <li><%= speaker['name'] %> - <%= speaker['word_count'] %></li>
+                <li><%= speaker.first %> - <%= speaker.last %></li>
             <% end %>
             </ul>
         </section>

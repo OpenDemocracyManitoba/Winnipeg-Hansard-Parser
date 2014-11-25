@@ -19,26 +19,31 @@ class Hansard
   end
 
   def sorted_word_occurrences
-    PatternCounter.new(all_words, WORD_REGEX, @stop_words).counted_and_sorted
+    PatternCounter.new(all_words, WORD_REGEX, @stop_words)
+                  .counted_and_sorted
   end
 
   def by_laws_counted
-    PatternCounter.new(all_words, BY_LAW_REGEX).counted_and_sorted
+    PatternCounter.new(all_words, BY_LAW_REGEX)
+                  .counted_and_sorted
   end
 
   def capitalized_phrases_counted
-    PatternCounter.new(all_words, CAPITALIZED_PHRASE_REGEX, attendance_with_guests).counted_and_sorted
+    PatternCounter.new(all_words, CAPITALIZED_PHRASE_REGEX, attendance_with_guests)
+                  .counted_and_sorted
   end
 
   def speakers_sorted_by_counted_words
-    counted_words_by_speaker.map do |name, counted_words|
-      { 'name' => name, 'word_count' => counted_words}
-    end.sort { |a, b| b['word_count'] <=> a['word_count'] }
+    counted_words_by_speaker.sort_by do |name, counted_words| 
+      counted_words
+    end.reverse!
   end
 
   private
   def sections_of_type(section_type)
-    @hansard_data['hansard'].select { |section| section['type'] == section_type }
+    @hansard_data['hansard'].select do |section| 
+      section['type'] == section_type
+    end
   end
 
   def speaker_sections
