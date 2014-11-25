@@ -51,7 +51,7 @@ class Hansard
   end
 
   def speaker_sections
-    sections_of_type('speaker')
+    @speaker_sections ||= sections_of_type('speaker')
   end
 
   def attendance_with_guests
