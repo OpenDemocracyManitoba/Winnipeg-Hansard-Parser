@@ -16,6 +16,18 @@ body {
     float: left;
 }
 
+/* HEADER */
+
+header .form-group {
+ margin: 0 15px;
+}
+
+.dark-bg {
+    background: rgba(54,66,74,1);
+    border-bottom: 1px solid #f1f2f7;
+}
+
+
 
 
 ul.sections, blockquote, li.section.speaker h2 {

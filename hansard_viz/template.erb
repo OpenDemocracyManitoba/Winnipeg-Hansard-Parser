@@ -10,32 +10,22 @@
     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
 </head>
 <body>
-    <div id="wrap">
-        <header>
-            <h1><%= @data.date_of_meeting %> Winipeg Council Meeting</h1>
-        </header>
-        <header class="header dark-bg">
-            <div class="toggle-nav">
-                <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"></div>
+    <header class="navbar navbar-inverse navbar-fixed-top">
+        <div class="toggle-nav">
+            <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"></div>
+        </div>
+
+        <a class="navbar-brand" href="#">Winnipeg <span class="lite">City Council</span> <%= @data.date_of_meeting %></a>
+
+        <form class="navbar-form navbar-right">
+            <div class="form-group has-feedback">
+                <input class="form-control" placeholder="Search" type="text">
+                <i class="glyphicon glyphicon-search form-control-feedback"></i>
             </div>
+        </form>
+    </header>
 
-            <!--logo start-->
-            <a href="index.html" class="logo">Nice <span class="lite">Admin</span></a>
-            <!--logo end-->
-
-            <div class="nav search-row" id="top_menu">
-                <!--  search form start -->
-                <ul class="nav top-menu">                    
-                    <li>
-                        <form class="navbar-form">
-                            <input class="form-control" placeholder="Search" type="text">
-                        </form>
-                    </li>                    
-                </ul>
-                <!--  search form end -->                
-            </div>
-        </header>
-
+    <div class="container">
         <div id="overview">
             <section class="capitalized-phrase">
                 <h2>Common Capitalized Phrases</h2>
