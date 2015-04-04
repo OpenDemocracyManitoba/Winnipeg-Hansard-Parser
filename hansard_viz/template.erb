@@ -2,47 +2,74 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <!-- <meta http-equiv="refresh" content="4"> -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= @data.date_of_meeting %> Winipeg Council Meeting</title>
-    <link rel="stylesheet" href="style.css" type="text/css" media="screen">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
 </head>
 <body>
     <div id="wrap">
         <header>
             <h1><%= @data.date_of_meeting %> Winipeg Council Meeting</h1>
         </header>
-        <section class="top-words">
-            <h2>Frequently Used Terms</h2>
-            <ul>
-            <% @data.sorted_word_occurrences.take(20).each do |word| %>
-                <li><%= word.first.capitalize %> - <%= word.last %></li>
-            <% end %>
-            </ul>
-        </section>
-        <section class="capitalized-phrase">
-            <h2>Common Capitalized Phrases</h2>
-            <ul>
-            <% @data.capitalized_phrases_counted.take(20).each do |capitalized_phrase| %>
-                <li><%= capitalized_phrase.first %> - <%= capitalized_phrase.last %></li>
-            <% end %>
-            </ul>
-        </section>
-        <section class="by-laws">
-            <h2>By Laws Mentioned</h2>
-            <ul>
-            <% @data.by_laws_counted.each do |by_law| %>
-                <li><%= by_law.first %> - <%= by_law.last %></li>
-            <% end %>
-            </ul>
-        </section>
-        <section class="attendnce">
-            <h2>Attendance &amp; Participation</h2>
-            <ul>
-            <% @data.speakers_sorted_by_counted_words.each do |speaker| %>
-                <li><%= speaker.first %> - <%= speaker.last %></li>
-            <% end %>
-            </ul>
-        </section>
+        <header class="header dark-bg">
+            <div class="toggle-nav">
+                <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"></div>
+            </div>
+
+            <!--logo start-->
+            <a href="index.html" class="logo">Nice <span class="lite">Admin</span></a>
+            <!--logo end-->
+
+            <div class="nav search-row" id="top_menu">
+                <!--  search form start -->
+                <ul class="nav top-menu">                    
+                    <li>
+                        <form class="navbar-form">
+                            <input class="form-control" placeholder="Search" type="text">
+                        </form>
+                    </li>                    
+                </ul>
+                <!--  search form end -->                
+            </div>
+        </header>
+
+        <div id="overview">
+            <section class="capitalized-phrase">
+                <h2>Common Capitalized Phrases</h2>
+                <ul>
+                <% @data.capitalized_phrases_counted.take(15).each do |capitalized_phrase| %>
+                    <li><%= capitalized_phrase.first %> - <%= capitalized_phrase.last %></li>
+                <% end %>
+                </ul>
+            </section>
+            <section class="top-words">
+                <h2>Frequently Used Terms</h2>
+                <ul>
+                <% @data.sorted_word_occurrences.take(15).each do |word| %>
+                    <li><%= word.first.capitalize %> - <%= word.last %></li>
+                <% end %>
+                </ul>
+            </section>
+            <section class="by-laws">
+                <h2>By Laws Mentioned</h2>
+                <ul>
+                <% @data.by_laws_counted.each do |by_law| %>
+                    <li><%= by_law.first %> - <%= by_law.last %></li>
+                <% end %>
+                </ul>
+            </section>
+            <section class="attendnce">
+                <h2>Words Spoken</h2>
+                <ul>
+                <% @data.speakers_sorted_by_counted_words.each do |speaker| %>
+                    <li><%= speaker.first %> - <%= speaker.last %></li>
+                <% end %>
+                </ul>
+            </section>
+        </div>
         <ul class='sections'>
             <% @data.all_sections.each do |section| %>
                 <li class="section <%= section['type'] %>">
@@ -83,9 +110,10 @@
             <% end %>
         </ul>
     </div>
-    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="js/readmore.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/readmore.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
 

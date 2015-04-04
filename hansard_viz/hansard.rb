@@ -29,7 +29,8 @@ class Hansard
   end
 
   def capitalized_phrases_counted
-    PatternCounter.new(all_words, CAPITALIZED_PHRASE_REGEX, attendance_with_guests)
+    excluded_phrases = attendance_with_guests
+    PatternCounter.new(all_words, CAPITALIZED_PHRASE_REGEX, excluded_phrases)
                   .unique_matches_sorted
                   .map do |phrase, count| # Re-Capitalize Phrases
                     [phrase.split.map(&:capitalize).join(' '), count]
