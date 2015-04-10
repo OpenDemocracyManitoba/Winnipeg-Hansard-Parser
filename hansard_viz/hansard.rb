@@ -13,6 +13,22 @@ class Hansard
   def all_sections
     @hansard_data['hansard']
   end
+  
+  def speaker_sections
+    @speaker_sections ||= sections_of_type('speaker')
+  end
+  
+  def motion_sections
+    @motion_sections ||= sections_of_type('motion')
+  end
+  
+  def vote_sections
+    @vote_sections ||= sections_of_type('vote')
+  end
+  
+  def topic_sections
+    @topic_sections ||= sections_of_type('section')
+  end
 
   def date_of_meeting
     @hansard_data['meta']['date']
@@ -49,10 +65,6 @@ class Hansard
     @hansard_data['hansard'].select do |section|
       section['type'] == section_type
     end
-  end
-
-  def speaker_sections
-    @speaker_sections ||= sections_of_type('speaker')
   end
 
   def attendance_with_guests
