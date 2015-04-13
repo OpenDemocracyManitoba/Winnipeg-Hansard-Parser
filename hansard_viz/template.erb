@@ -64,10 +64,21 @@
         </div>
         <div class="row" >
             <div class="chart col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <div class="ct-chart ct-perfect-fourth capitalized-phrases"></div>
+                <div class="ct-chart capitalized-phrases">
+                   <h2>Popular Capitalized Phrases</h2>
+                </div>
+            </div>
+            <div class="chart col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="ct-chart popular-terms">
+                   <h2>Popular Words</h2>
+                </div>
             </div>
         </div>
-        <div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="hidden">
             <section class="capitalized-phrases">
                 <h2>Common Capitalized Phrases</h2>
                 <ul>
@@ -93,45 +104,51 @@
                 </ul>
             </section>
         </div>
-        <ul class='sections'>
+        <div class='sections'>
             <% @data.all_sections.each do |section| %>
-                <li class="section <%= section['type'] %>">
+                <div class="row section <%= section['type'] %>">
                     <% if section['type'] == 'section' %> 
-                        <h2><%= section['name'] %></h2>
+                        <h2 class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><%= section['name'] %></h2>
                     <% elsif section['type'] == 'speaker' %>
-                        <header>
+                        <header class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                             <img src="images/<%= section['name'].gsub(' ','_') %>.jpg">
                         </header>
-                        <section>
-                            <h2><%= section['name'] %></h2>
-                            <blockquote>
-                                <%= section['spoken'] %>
-                            </blockquote>
-                        </section>
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                            <section >
+                                <h2><%= section['name'] %></h2>
+                                <blockquote>
+                                    <%= section['spoken'] %>
+                                </blockquote>
+                            </section>
+                        </div>
                     <% elsif section['type'] == 'vote' %>
-                        <h2><%= section['name'] %></h2>
-                        <dl>
-                            <dt>Outcome</dt>
-                            <dd><%= section['outcome'] %></dd>
-                            <dt>Yeas</dt>
-                            <dd><%= section['yeas'] %></dd>
-                            <dt>Nays</dt>
-                            <dd><%= section['nays'] %></dd>
-                        </dl>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <h2><%= section['name'] %></h2>
+                            <dl>
+                                <dt>Outcome</dt>
+                                <dd><%= section['outcome'] %></dd>
+                                <dt>Yeas</dt>
+                                <dd><%= section['yeas'] %></dd>
+                                <dt>Nays</dt>
+                                <dd><%= section['nays'] %></dd>
+                            </dl>
+                        </div>
                     <% elsif section['type'] == 'motion' %>
-                        <h2><%= section['name'] %></h2>
-                        <dl>
-                            <dt>Moved By</dt>
-                            <dd><%= section['moved_by'] %></dd>
-                            <dt>Seconded By</dt>
-                            <dd><%= section['seconded_by'] %></dd>
-                            <dt>Motion</dt>
-                            <dd><%= section['motion_text'] %></dd>
-                        </dl>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <h2><%= section['name'] %></h2>
+                            <dl>
+                                <dt>Moved By</dt>
+                                <dd><%= section['moved_by'] %></dd>
+                                <dt>Seconded By</dt>
+                                <dd><%= section['seconded_by'] %></dd>
+                                <dt>Motion</dt>
+                                <dd><%= section['motion_text'] %></dd>
+                            </dl>
+                        </div>
                     <% end %>
-                </li>
+                </div>
             <% end %>
-        </ul>
+        </div>
     </div>
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -140,14 +157,21 @@
     <script>
     var capitalized_phrases = {
       // A labels array that can contain any sort of values
-      labels: [<%= @data.capitalized_phrases_counted.take(15).map { |(p,_)| "'#{p}'" }.join(',') %>],
+      labels: [<%= @data.capitalized_phrases_counted.take(10).map { |(p,_)| "'#{p}'" }.join(',') %>],
       // Our series array that contains series objects or in this case series data arrays
       series: [
-        [<%= @data.capitalized_phrases_counted.take(15).map { |(_,c)| c }.join(',') %>]
+        [<%= @data.capitalized_phrases_counted.take(10).map { |(_,c)| c }.join(',') %>]
       ]
     };
-
-    </script>
+    var popular_terms = {
+      // A labels array that can contain any sort of values
+      labels: [<%= @data.sorted_word_occurrences.take(10).map { |(p,_)| "'#{p.capitalize}'" }.join(',') %>],
+      // Our series array that contains series objects or in this case series data arrays
+      series: [
+        [<%= @data.sorted_word_occurrences.take(10).map { |(_,c)| c }.join(',') %>]
+      ]
+    };    </script>
+    <script src="js/chart.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

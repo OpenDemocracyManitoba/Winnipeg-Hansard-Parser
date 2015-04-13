@@ -26,6 +26,31 @@ header .form-group {
     border-bottom: 1px solid #f1f2f7;
 }
 
+.hidden {
+    display: none;
+}
+
+/* CHART */
+
+.ct-label {
+  font-size: 16px !important;
+  color: #666 !important;
+}
+
+.chart > div {
+  background-color: #ddd;
+  padding: 15px;
+  padding-bottom: 0;
+}
+
+.chart h2 {
+    color: #777;
+    margin-top: 0;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
 /* INFO BOX */
 
 .info-box {
@@ -38,10 +63,6 @@ header .form-group {
   -webkit-box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.35), 0 3px 1px -1px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.35), 0 3px 1px -1px rgba(0, 0, 0, 0.1);
   box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.35), 0 3px 1px -1px rgba(0, 0, 0, 0.1);
-}
-
-.ct-label {
-    font-size: 16px !important;
 }
 
     .info-box i {
@@ -74,33 +95,28 @@ header .form-group {
     font-size: 34px;
 }
 
-ul.sections, blockquote, li.section.speaker h2 {
+div.sections, blockquote, li.section.speaker h2 {
     margin: 0;
     padding: 0;
 }
 
-ul.sections {
+div.sections {
     list-style: none;
 }
-    li.section {
+    div.section {
         margin-bottom: 2em;
     }
 
-    li.section.speaker {
+    div.section.speaker {
         overflow: auto;
     }
-        li.section.speaker header {
-            margin-right: 20px;
-            float: left;
-        }
-        li.section.speaker section {
+        div.section.speaker section {
+      
             background-color: #89C4F4;
-            width: 860px;
             padding: 15px;
-            float: left;
             position: relative;
         }
-        li.section.speaker section:after {
+        div.section.speaker section:after {
             content: '';
             position: absolute;
             border-style: solid;
@@ -112,20 +128,20 @@ ul.sections {
             left: -15px;
             top: 50px;
             }
-        li.section.speaker:nth-child(odd) section {
+        div.section.speaker:nth-child(odd) section {
             background-color: #C5EFF7;
         }
-        li.section.speaker:nth-child(odd) section:after {
+        div.section.speaker:nth-child(odd) section:after {
             border-color: transparent #C5EFF7;
         }
-        li.section.speaker section h2 {
-            margin-bottom: 5px;
+        div.section.speaker section h2 {
+            margin-bottom: 15px;
+            margin-top: 0;
         }
-        li.section.speaker img {
-            height: 110px;
-            width: 90px;
+        div.section.speaker img {
+            width: 100%;
         }
-        li.section.speaker blockquote {
+        div.section.speaker blockquote {
             line-height: 1.4em;
         }
 

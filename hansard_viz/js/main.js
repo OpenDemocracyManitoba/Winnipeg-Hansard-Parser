@@ -4,27 +4,28 @@ $( document ).ready(function() {
 });
 
 function capitalized_phrases_chart() {
-    var data = {
-      // A labels array that can contain any sort of values
-      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-      // Our series array that contains series objects or in this case series data arrays
-      series: [
-        [5, 2, 4, 2, 0]
-      ]
-    };
-
     var options = {
-        height: 300,
+        height: 260,
         reverseData: true,
         horizontalBars: true,
         axisY: {
-          offset: 280,
+          offset: 240,
           scaleMinSpace: 0
+        },
+        
+        axisX: {
+            labelInterpolationFnc: function(value) {
+                return (isNaN(value) || value % 1 == 0 ) ? value : ' '; // Only use whole numbers.
+            }
         }
     }
 
     // Create a new line chart object where as first parameter we pass in a selector
     // that is resolving to our chart container element. The Second parameter
     // is the actual data object.
-    new Chartist.Bar('.ct-chart', capitalized_phrases, options);
+    new Chartist.Bar('.ct-chart.capitalized-phrases', capitalized_phrases, options);
+    
+    options['axisY']['offset'] = 100;
+    
+    new Chartist.Bar('.ct-chart.popular-terms', popular_terms, options);
 }

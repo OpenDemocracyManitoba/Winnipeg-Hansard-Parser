@@ -46,6 +46,7 @@ class Hansard
 
   def capitalized_phrases_counted
     excluded_phrases = attendance_with_guests
+    excluded_phrases << 'By-law  No'
     PatternCounter.new(all_words, CAPITALIZED_PHRASE_REGEX, excluded_phrases)
                   .unique_matches_sorted
                   .map do |phrase, count| # Re-Capitalize Phrases
