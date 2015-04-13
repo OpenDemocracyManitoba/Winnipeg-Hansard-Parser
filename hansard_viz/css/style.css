@@ -1,5 +1,8 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
+
 body {
     padding-top: 70px;
+    font-family: 'Lato', sans-serif;
 }
 
 #overview {
@@ -23,8 +26,53 @@ header .form-group {
     border-bottom: 1px solid #f1f2f7;
 }
 
+/* INFO BOX */
 
+.info-box {
+  background-color: #aaa;
+  min-height: 150px;
+  margin-bottom: 30px;
+  padding: 10px;
+  color: white;
+  overflow: auto;
+  -webkit-box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.35), 0 3px 1px -1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.35), 0 3px 1px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.35), 0 3px 1px -1px rgba(0, 0, 0, 0.1);
+}
 
+.ct-label {
+    font-size: 16px !important;
+}
+
+    .info-box i {
+      display: block;
+      height: 130px;
+      font-size: 60px;
+      line-height: 100px;
+      width: 100px;
+      float: left;
+      text-align: center;
+      margin-right: 10px;
+      padding-right: 20px;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .info-box p {
+      margin-top: 24px;
+      font-size: 40px;
+      font-weight: 700;
+    }
+    .info-box h2 {
+      margin-top: 0;
+      font-size: 15px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+.info-box p.smaller {
+    margin-top: 32px;
+    font-size: 34px;
+}
 
 ul.sections, blockquote, li.section.speaker h2 {
     margin: 0;

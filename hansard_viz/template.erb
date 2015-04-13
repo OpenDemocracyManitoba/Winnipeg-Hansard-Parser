@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
 </head>
 <body>
     <header class="navbar navbar-inverse navbar-fixed-top">
@@ -27,7 +28,47 @@
 
     <div class="container-fluid">
         <div class="row">
-            <section class="capitalized-phrase">
+            <div class="motion-stats col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="info-box">
+                    <i class="glyphicon glyphicon-send"></i>
+                    <p><%= @data.motion_sections.size %></p>
+                    <h2>Motions</h2>
+                </div>
+            </div>
+            <div class="recorded-vote-stats col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="info-box">
+                    <i class="glyphicon glyphicon-ok-sign"></i>
+                    <p><%= @data.vote_sections.size %></p>
+                    <h2>Recorded Votes</h2>
+                </div>
+            </div>
+            <div class="by-law-stats col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="info-box">
+                    <i class="glyphicon glyphicon-list-alt"></i>
+                    <p><%= @data.by_laws_counted.size %></p>
+                    <h2>By Laws Mentioned</h2>
+                    <ul class="hidden">
+                    <% @data.by_laws_counted.each do |by_law| %>
+                        <li><%= by_law.first %> - <%= by_law.last %></li>
+                    <% end %>
+                    </ul>
+                </div>
+            </div>
+            <div class="duration-stats col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="info-box">
+                    <i class="glyphicon glyphicon-time"></i>
+                    <p class="smaller"><%= @data.all_words.size / 1000 %>K</p>
+                    <h2>Words Spoken</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row" >
+            <div class="chart col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="ct-chart ct-perfect-fourth capitalized-phrases"></div>
+            </div>
+        </div>
+        <div>
+            <section class="capitalized-phrases">
                 <h2>Common Capitalized Phrases</h2>
                 <ul>
                 <% @data.capitalized_phrases_counted.take(15).each do |capitalized_phrase| %>
@@ -40,14 +81,6 @@
                 <ul>
                 <% @data.sorted_word_occurrences.take(15).each do |word| %>
                     <li><%= word.first.capitalize %> - <%= word.last %></li>
-                <% end %>
-                </ul>
-            </section>
-            <section class="by-laws">
-                <h2>By Laws Mentioned</h2>
-                <ul>
-                <% @data.by_laws_counted.each do |by_law| %>
-                    <li><%= by_law.first %> - <%= by_law.last %></li>
                 <% end %>
                 </ul>
             </section>
@@ -103,6 +136,18 @@
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/readmore.js"></script>
+    <script src="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <script>
+    var capitalized_phrases = {
+      // A labels array that can contain any sort of values
+      labels: [<%= @data.capitalized_phrases_counted.take(15).map { |(p,_)| "'#{p}'" }.join(',') %>],
+      // Our series array that contains series objects or in this case series data arrays
+      series: [
+        [<%= @data.capitalized_phrases_counted.take(15).map { |(_,c)| c }.join(',') %>]
+      ]
+    };
+
+    </script>
     <script src="js/main.js"></script>
 </body>
 </html>

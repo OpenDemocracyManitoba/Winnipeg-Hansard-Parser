@@ -13,19 +13,19 @@ class Hansard
   def all_sections
     @hansard_data['hansard']
   end
-  
+
   def speaker_sections
     @speaker_sections ||= sections_of_type('speaker')
   end
-  
+
   def motion_sections
     @motion_sections ||= sections_of_type('motion')
   end
-  
+
   def vote_sections
     @vote_sections ||= sections_of_type('vote')
   end
-  
+
   def topic_sections
     @topic_sections ||= sections_of_type('section')
   end
@@ -59,6 +59,12 @@ class Hansard
     end.reverse!
   end
 
+  def all_words
+    @all_words ||= speaker_sections.reduce('') do |words, speaker_section|
+      words + speaker_section['spoken']
+    end
+  end
+
   private
 
   def sections_of_type(section_type)
@@ -71,12 +77,6 @@ class Hansard
     speaker_sections.map do |section|
       section['name']
     end.uniq
-  end
-
-  def all_words
-    @all_words ||= speaker_sections.reduce('') do |words, speaker_section|
-      words + speaker_section['spoken']
-    end
   end
 
   def all_words_by_speaker
