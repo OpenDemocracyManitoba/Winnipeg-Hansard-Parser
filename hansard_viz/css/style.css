@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
 
 body {
-    padding-top: 70px;
+    padding-top: 85px;
     font-family: 'Lato', sans-serif;
 }
 
@@ -13,6 +13,12 @@ body {
 #overview section {
     width: 50%;
     float: left;
+}
+
+h2.manual-section {
+    color: #666;
+    text-transform: uppercase;
+    margin-top: 0;
 }
 
 /* HEADER */

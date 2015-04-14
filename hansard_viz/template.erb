@@ -16,7 +16,7 @@
             <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"></div>
         </div>
 
-        <a class="navbar-brand" href="#">Winnipeg <span class="lite">City Council</span> <%= @data.date_of_meeting %></a>
+        <a class="navbar-brand" href="#">Winnipeg <span class="lite">City Council</span> Hansard Meeting Dashboard </a>
 
         <form class="navbar-form navbar-right">
             <div class="form-group has-feedback">
@@ -27,6 +27,8 @@
     </header>
 
     <div class="container-fluid">
+        <h2 class="manual-section">Winnipeg City Council Meeting &ndash; <%= @data.date_of_meeting %></h2>
+        <br>
         <div class="row">
             <div class="motion-stats col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 <div class="info-box">
@@ -62,6 +64,8 @@
                 </div>
             </div>
         </div>
+        <h2 class="manual-section">Popular Capitalized Phrases &amp; Words</h2>
+        <br>
         <div class="row" >
             <div class="chart col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="ct-chart capitalized-phrases">
@@ -74,6 +78,8 @@
                 </div>
             </div>
         </div>
+        <h2 class="manual-section">Attendance &amp; Participation</h2>
+        <br>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="roll_call">

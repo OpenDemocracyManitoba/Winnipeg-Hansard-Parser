@@ -1,4 +1,5 @@
 require_relative './pattern_counter.rb'
+require 'date'
 
 class Hansard
   BY_LAW_REGEX = /\d+\/\d{4}/
@@ -31,7 +32,7 @@ class Hansard
   end
 
   def date_of_meeting
-    @hansard_data['meta']['date']
+    Date.parse(@hansard_data['meta']['date']).strftime('%A, %B %e %Y')
   end
 
   def sorted_word_occurrences
