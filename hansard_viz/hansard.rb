@@ -60,10 +60,14 @@ class Hansard
     end.reverse!
   end
 
-  def all_words
+  def all_words # This isn't really all words as per WORD_REGEX. It's all the text.
     @all_words ||= speaker_sections.reduce('') do |words, speaker_section|
       words + speaker_section['spoken']
     end
+  end
+  
+  def all_words_count
+    PatternCounter.new(all_words, WORD_REGEX).matches.count
   end
   
   def attendance_with_guests

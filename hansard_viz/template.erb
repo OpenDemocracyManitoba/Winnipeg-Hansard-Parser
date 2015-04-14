@@ -57,7 +57,7 @@
             <div class="duration-stats col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 <div class="info-box">
                     <i class="glyphicon glyphicon-time"></i>
-                    <p class="smaller"><%= @data.all_words.size / 1000 %>K</p>
+                    <p><%= @data.all_words_count / 1000 %>K</p>
                     <h2>Words Spoken</h2>
                 </div>
             </div>
@@ -168,7 +168,6 @@
         [<%= @data.speakers_sorted_by_counted_words.map { |(_,c)| c }.join(',') %>]
       ]
     };
-    
     </script>
     <script src="js/chart.js"></script>
     <script src="js/main.js"></script>
