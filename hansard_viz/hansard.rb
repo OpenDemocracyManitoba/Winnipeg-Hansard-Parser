@@ -65,6 +65,16 @@ class Hansard
       words + speaker_section['spoken']
     end
   end
+  
+  def attendance_with_guests
+    @attendance_with_guests ||= speaker_sections.map do |section|
+      section['name']
+    end.uniq.reject { |name| name =~ /clerk/i}
+  end
+  
+  def guests_in_attendance
+  end
+  
 
   private
 
@@ -72,12 +82,6 @@ class Hansard
     @hansard_data['hansard'].select do |section|
       section['type'] == section_type
     end
-  end
-
-  def attendance_with_guests
-    speaker_sections.map do |section|
-      section['name']
-    end.uniq
   end
 
   def all_words_by_speaker
@@ -89,6 +93,6 @@ class Hansard
   def counted_words_by_speaker
     all_words_by_speaker.each_with_object({}) do |(k, v), h|
       h[k] = PatternCounter.new(v, WORD_REGEX).matches.size
-    end
+    end.reject { |words| words =~ /clerk/i}
   end
 end

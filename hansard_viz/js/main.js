@@ -28,4 +28,9 @@ function capitalized_phrases_chart() {
     options['axisY']['offset'] = 100;
     
     new Chartist.Bar('.ct-chart.popular-terms', popular_terms, options);
+    
+    options['axisY']['offset'] = 200;
+    options['height'] = 510;
+    
+    new Chartist.Bar('.ct-chart.words-spoken', words_spoken_by_councillors, options);
 }

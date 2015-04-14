@@ -74,35 +74,23 @@
                 </div>
             </div>
         </div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <div class="hidden">
-            <section class="capitalized-phrases">
-                <h2>Common Capitalized Phrases</h2>
-                <ul>
-                <% @data.capitalized_phrases_counted.take(15).each do |capitalized_phrase| %>
-                    <li><%= capitalized_phrase.first %> - <%= capitalized_phrase.last %></li>
-                <% end %>
-                </ul>
-            </section>
-            <section class="top-words">
-                <h2>Frequently Used Terms</h2>
-                <ul>
-                <% @data.sorted_word_occurrences.take(15).each do |word| %>
-                    <li><%= word.first.capitalize %> - <%= word.last %></li>
-                <% end %>
-                </ul>
-            </section>
-            <section class="attendnce">
-                <h2>Words Spoken</h2>
-                <ul>
-                <% @data.speakers_sorted_by_counted_words.each do |speaker| %>
-                    <li><%= speaker.first %> - <%= speaker.last %></li>
-                <% end %>
-                </ul>
-            </section>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="roll_call">
+                    <h2>Attendance in Order of Appreance</h2>
+                    <% @data.attendance_with_guests.each do |name| %>
+                        <div class="attendee">
+                            <img src="images/<%= name.gsub(' ','_') %>.jpg">
+                            <p><%= name %></p>
+                        </div>
+                    <% end %>    
+                </div>
+            </div>
+            <div class="chart col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="ct-chart words-spoken">
+                   <h2>Number of Words Spoken</h2>
+                </div>
+            </div>
         </div>
         <div class='sections'>
             <% @data.all_sections.each do |section| %>
@@ -170,7 +158,18 @@
       series: [
         [<%= @data.sorted_word_occurrences.take(10).map { |(_,c)| c }.join(',') %>]
       ]
-    };    </script>
+    };
+    
+    var words_spoken_by_councillors = {
+      // A labels array that can contain any sort of values
+      labels: [<%= @data.speakers_sorted_by_counted_words.map { |(p,_)| "'#{p}'" }.join(',') %>],
+      // Our series array that contains series objects or in this case series data arrays
+      series: [
+        [<%= @data.speakers_sorted_by_counted_words.map { |(_,c)| c }.join(',') %>]
+      ]
+    };
+    
+    </script>
     <script src="js/chart.js"></script>
     <script src="js/main.js"></script>
 </body>
