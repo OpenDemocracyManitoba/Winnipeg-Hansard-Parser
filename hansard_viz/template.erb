@@ -16,7 +16,7 @@
             <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"></div>
         </div>
 
-        <a class="navbar-brand" href="#">Winnipeg <span class="lite">City Council</span> Hansard Meeting Dashboard </a>
+        <a class="navbar-brand" href="#">Winnipeg <span class="lite">City Council</span> Dashboard </a>
 
         <form class="navbar-form navbar-right">
             <div class="form-group has-feedback">
@@ -98,16 +98,17 @@
                 </div>
             </div>
         </div>
-        <div class='sections'>
+        <div class='sections row'>
+            <div class="chat col-lg-6 col-md-12 col-sm-12 col-xs-12">
             <% @data.all_sections.each do |section| %>
                 <div class="row section <%= section['type'] %>">
                     <% if section['type'] == 'section' %> 
                         <h2 class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><%= section['name'] %></h2>
                     <% elsif section['type'] == 'speaker' %>
-                        <header class="col-lg-1 col-md-2 col-sm-3 col-xs-4">
+                        <header class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
                             <img src="images/<%= section['name'].gsub(' ','_') %>.jpg">
                         </header>
-                        <div class="col-lg-11 col-md-10 col-sm-9 col-xs-8">
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-9">
                             <section >
                                 <h2><%= section['name'] %></h2>
                                 <blockquote>
@@ -142,6 +143,13 @@
                     <% end %>
                 </div>
             <% end %>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <h2>COUNCIL MEETING VIDEO</h2>
+                <div class="video">
+                    <iframe src="https://www.youtube.com/embed/Kx4rqOY7VEI" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
         </div>
     </div>
     <script src="js/jquery-1.11.1.min.js"></script>

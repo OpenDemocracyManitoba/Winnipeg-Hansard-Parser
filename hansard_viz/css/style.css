@@ -3,6 +3,7 @@
 body {
     padding-top: 85px;
     font-family: 'Lato', sans-serif;
+    padding-bottom: 50px;
 }
 
 #overview {
@@ -16,7 +17,7 @@ body {
 }
 
 h2.manual-section {
-    color: #666;
+    color: #444;
     text-transform: uppercase;
     margin-top: 0;
 }
@@ -65,7 +66,6 @@ header .form-group {
     padding: 15px 15px 15px 0;
     margin-bottom: 30px;
     background-color: #ddd;
-    min-height: 556px;
 }
     .roll_call  h2 {
         color: #777;
@@ -76,22 +76,42 @@ header .form-group {
         text-transform: uppercase;
         font-weight: 600;
     }
-        
     .roll_call .attendee {
         float: left;
-        width: 96px;
-        height: 163px;
+        width: 61px;
+        height: 122px;
         margin-left: 15px;
     }
         .roll_call .attendee img {
             width: 100%;
-            height: 115px;
+            height: 75px;
         }
         
         .roll_call .attendee p {
             margin-top: 4px;
             line-height: 1.1em;
         }
+
+@media (min-width: 992px) {
+    .roll_call {
+        min-height: 556px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .roll_call .attendee {
+        width: 96px;
+        height: 163px;
+    }
+        .roll_call .attendee img {
+            height: 115px;
+        }
+        
+    .chat {
+        height: 600px;
+        overflow-y: scroll;
+    }
+}
 
 /* INFO BOX */
 
@@ -190,3 +210,19 @@ div.sections {
 blockquote {
     border-left: none;
 }
+
+.video {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 35px;
+    height: 0;
+    overflow: hidden;
+}
+
+    .video iframe {
+        position: absolute;
+        top:0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
