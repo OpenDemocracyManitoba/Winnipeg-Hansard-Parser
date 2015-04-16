@@ -22,6 +22,34 @@ h2.manual-section {
     margin-top: 0;
 }
 
+/* Section Links */
+
+.section-links {
+    background-color: #ddd;
+    padding: 15px;
+    margin-bottom: 30px;
+}
+
+    .section-links ul {
+        padding-left: 1px;
+        list-style: none;
+    }
+
+    .section-links li {
+       white-space: nowrap;
+       overflow: hidden;
+       text-overflow: ellipsis;
+    }
+
+    .section-links h2 {
+        color: #777;
+        margin-top: 0;
+        font-size: 15px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
 /* HEADER */
 
 header .form-group {
@@ -95,6 +123,10 @@ header .form-group {
 @media (min-width: 992px) {
     .roll_call {
         min-height: 556px;
+    }
+    
+    .section-links {
+        min-height: 516px;
     }
 }
 

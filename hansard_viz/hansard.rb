@@ -77,10 +77,6 @@ class Hansard
     end.uniq.reject { |name| name =~ /clerk/i}
   end
   
-  def guests_in_attendance
-  end
-  
-
   private
 
   def sections_of_type(section_type)
