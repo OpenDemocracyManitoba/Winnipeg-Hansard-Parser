@@ -67,6 +67,10 @@ header .form-group {
 
 /* CHART */
 
+.ct-chart .ct-series.ct-series-a .ct-bar {
+    stroke: #6385D0 !important;
+}
+
 .ct-label {
   font-size: 16px !important;
   color: #666 !important;
