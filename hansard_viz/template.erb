@@ -98,7 +98,7 @@
                 </div>
             </div>
         </div>
-        <h2 class="manual-section">Hansard Navigation</h2>
+        <h2 class="manual-section" id="navigation">Hansard Navigation</h2>
         <br>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -176,6 +176,7 @@
                                 <dt>Nays - <%= section['nays'].split(',').size %></dt>
                                 <dd><%= section['nays'] %></dd>
                             </dl>
+                            <p><a href="#navigation">Return To Top</a></p>
                         </div>
                     <% elsif section['type'] == 'motion' %>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -199,6 +200,8 @@
                             <div class="text">
                                 <p><strong>Motion Text</strong></p>
                                 <div><%= section['motion_text'] %></div>
+                                <br>
+                                <p><a href="#navigation">Return To Top</a></p>
                             </div>
                         </div>
                     <% end %>
