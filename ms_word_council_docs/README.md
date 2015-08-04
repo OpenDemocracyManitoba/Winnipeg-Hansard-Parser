@@ -1,7 +1,5 @@
 # Extracting Data from Wpg Council MS-Word Documents
 
-Sample documents produced by the City Clerk's Department 
-
 ## Decision Making History at the City of Winnipeg
 
 The Winnipeg City Clerk's department records the decision making history of all reports, motions, and by-laws that move through the city's [25+ committees](http://clkapps.winnipeg.ca/dmis/) using the Decision Making Information System, [DMIS](http://clkapps.winnipeg.ca/dmis/). 
@@ -29,4 +27,10 @@ A Disposition is compiled as a summary of report approvals, motion outcomes and 
 
 ### Hansard
 
-The creation of a full transcript of the meeting begins with a Word auto-format of the closed-caption text from ALL CAPS to normal punctuations. Clerks then read through the entire transcript to correct capitalization, fix spelling mistakes and mis-captions, and attempt to replace instances of "[inaudible]" with actual dialogue from the video. The ALL CAPS closed-caption version of the hansard is published right away. The final version reviewed by the Clerk's department is publish a few weeks later. Winnipeg is believed to be the only city in Canada that publishes a hansard for Council meetings. No other committees on DMIS have hansards. 
+The creation of a full transcript of the meeting begins with a Word auto-format of the closed-caption text from ALL CAPS to normal punctuations. Clerks then read through the entire transcript to correct capitalization, fix spelling mistakes and mis-captions, and attempt to replace instances of "[inaudible]" with actual dialogue from the video. The ALL CAPS closed-caption version of the hansard is published right away. The final version reviewed by the Clerk's department is publish a few weeks later. Winnipeg is believed to be the only city in Canada that publishes a hansard for Council meetings. No other committees on DMIS have hansards.
+
+## Sample Council Meeting Documents from the City Clerk's Department
+
+* [Hansard from 25-03-2015 Council Meeting](https://github.com/OpenDemocracyManitoba/Winnipeg-Hansard-Parser/blob/master/ms_word_council_docs/2015%2003%2025%20-%20Hansard.docx) - MS Word DOCX
+* [Disposition from 25-03-2015 Council Meeting](https://github.com/OpenDemocracyManitoba/Winnipeg-Hansard-Parser/blob/master/ms_word_council_docs/D%202015%2003%2025.doc) - MS Word DOC
+* [Minutes Index from 25-03-2015 Council Meeting](https://github.com/OpenDemocracyManitoba/Winnipeg-Hansard-Parser/blob/master/ms_word_council_docs/COUNCIL%20-%20INDEX.doc) - MS Word DOC
