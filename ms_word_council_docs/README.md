@@ -46,3 +46,10 @@ Some Ruby libraries of interest for creating and reading DOCX:
 * [senny/sablon](https://github.com/senny/sablon) - Insert datasets into DOCX templates using Ruby.
 * [docxtor/docxtor](https://github.com/docxtor/docxtor) - DSL for building DOCX documents.
 * [ffmike/docx_builder](https://github.com/ffmike/docx_builder) - Programatically build DOCX documents.
+
+Ways to convert DOC to DOCX:
+
+* Simplest way would be to have the city save a separate copy as a DOCX for publishing.
+* [JODConverter](https://code.google.com/p/jodconverter/wiki/GettingStarted) - Command line tool for Linux that uses the OpenOffice API under the hood. No longer maintained.
+* [Using LibreOffice from the command line](http://stackoverflow.com/a/21204653).
+* [Unoconv](https://github.com/dagwieers/unoconv/) - Also uese LibreOffice.
