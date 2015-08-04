@@ -29,8 +29,20 @@ A Disposition is compiled as a summary of report approvals, motion outcomes and 
 
 The creation of a full transcript of the meeting begins with a Word auto-format of the closed-caption text from ALL CAPS to normal punctuations. Clerks then read through the entire transcript to correct capitalization, fix spelling mistakes and mis-captions, and attempt to replace instances of "[inaudible]" with actual dialogue from the video. The ALL CAPS closed-caption version of the hansard is published right away. The final version reviewed by the Clerk's department is publish a few weeks later. Winnipeg is believed to be the only city in Canada that publishes a hansard for Council meetings. No other committees on DMIS have hansards.
 
-## Sample Council Meeting Documents from the City Clerk's Department
+## Sample DMIS Documents from the Clerk's Department
 
 * [Hansard from 25-03-2015 Council Meeting](https://github.com/OpenDemocracyManitoba/Winnipeg-Hansard-Parser/blob/master/ms_word_council_docs/2015%2003%2025%20-%20Hansard.docx) - MS Word DOCX
 * [Disposition from 25-03-2015 Council Meeting](https://github.com/OpenDemocracyManitoba/Winnipeg-Hansard-Parser/blob/master/ms_word_council_docs/D%202015%2003%2025.doc) - MS Word DOC
 * [Minutes Index from 25-03-2015 Council Meeting](https://github.com/OpenDemocracyManitoba/Winnipeg-Hansard-Parser/blob/master/ms_word_council_docs/COUNCIL%20-%20INDEX.doc) - MS Word DOC
+
+## Initial Technical Analysis
+
+The hansard is saved as a DOCX format, which is zip/xml-based and should therefore be simple enough to parse. The disposition and minutes are in the older DOC format. They will need to be converted into DOCX before parsing. In the case of the minutes-index, which DMIS uses to build the table of contents for the Minutes, DOC might be the format expected by the DMIS code.
+
+Some Ruby libraries of interest for creating and reading DOCX:
+
+* [chrahunt/docx](https://github.com/chrahunt/docx) - Read DOCX paragraphs/bookmarks/tables. Insert text at bookmarks. Save changes.
+* [zdavatz/ydocx](https://github.com/zdavatz/ydocx) - Parse DOCX files and output them as HTML.
+* [senny/sablon](https://github.com/senny/sablon) - Insert datasets into DOCX templates using Ruby.
+* [docxtor/docxtor](https://github.com/docxtor/docxtor) - DSL for building DOCX documents.
+* [ffmike/docx_builder](https://github.com/ffmike/docx_builder) - Programatically build DOCX documents.
