@@ -66,17 +66,17 @@ class Hansard
       words + speaker_section['spoken']
     end
   end
-  
+
   def all_words_count
     PatternCounter.new(all_words, WORD_REGEX).matches.count
   end
-  
+
   def attendance_with_guests
     @attendance_with_guests ||= speaker_sections.map do |section|
       section['name']
     end.uniq.reject { |name| name =~ /clerk/i}
   end
-  
+
   private
 
   def sections_of_type(section_type)
