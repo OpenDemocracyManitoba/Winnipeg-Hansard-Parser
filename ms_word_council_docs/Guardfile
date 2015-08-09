@@ -4,7 +4,7 @@
 guard :rspec, cmd: 'bundle exec rspec' do
   watch(%r{^spec/.+_spec\.rb$})
   watch('spec/spec_helper.rb')  { 'spec' }
-  watch('hansard.rb') { 'spec/hansard_spec.rb' }
+  watch('disposition.rb') { 'spec/disposition_spec.rb' }
 #  watch('hansard_viz/hansard.rb') { 'spec' }
 #  watch('hansard_viz/pattern_counter.rb') { 'spec/pattern_counter_spec.rb' }
 #  watch('hansard_viz/template.erb') { 'spec' }
