@@ -32,15 +32,16 @@ class Disposition
 
   def bylaw_data
     bylaw_table_rows.map do |bylaw_row|
-      { number:      bylaw_row.cells[0].text,
-        subject:     bylaw_row.cells[1].text,
-        disposition: bylaw_row.cells[2].text }
+      { number:      bylaw_row.cells[0].text.strip,
+        subject:     bylaw_row.cells[1].text.strip,
+        disposition: bylaw_row.cells[2].text.strip }
     end
   end
 
   # MOTIONS
   #
-  # Motion table in document cannot be broken into multiple tables.
+  # * Motion table in document cannot be broken into multiple tables.
+  # * Many motion subjects contain lists and other formatting. Currently this is ignore and converted to text only.
   
   def motion_table
     table_select('COUNCIL MOTIONS')
@@ -52,10 +53,10 @@ class Disposition
 
   def motion_data
     motion_table_rows.map do |motion_row|
-      { number:      motion_row.cells[0].text,
-        movers:      motion_row.cells[1].text,
-        subject:     motion_row.cells[2].text,
-        disposition: motion_row.cells[3].text }
+      { number:      motion_row.cells[0].text.strip,
+        movers:      motion_row.cells[1].text.strip,
+        subject:     motion_row.cells[2].text.strip,
+        disposition: motion_row.cells[3].text.strip }
     end
   end
 
