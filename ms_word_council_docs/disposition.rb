@@ -12,15 +12,12 @@ class Disposition
     bylaw_data
   end
 
-  def_delegator :doc, :tables
-
   private
   attr_reader :doc
+  def_delegator :doc, :tables # This delegator isn't being made private. Is that possible?
 
   def bylaw_table
-    tables.select do |t| 
-      t.rows[0].cells[0].text == 'BY-LAWS PASSED (RECEIVED THIRD READING)'
-    end.first
+    table_select('BY-LAWS PASSED (RECEIVED THIRD READING)')
   end
 
   def bylaw_table_rows
@@ -33,5 +30,11 @@ class Disposition
         subject:     bylaw_row.cells[1].text,
         disposition: bylaw_row.cells[2].text }
     end
+  end
+
+  def table_select(heading)
+    tables.select do |t|
+      t.rows[0].cells[0].text == heading
+    end.first
   end
 end
