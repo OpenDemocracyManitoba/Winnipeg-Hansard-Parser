@@ -12,9 +12,15 @@ class Disposition
     bylaw_data
   end
 
+  def motions
+   motion_data 
+  end
+
   private
   attr_reader :doc
   def_delegator :doc, :tables # This delegator isn't being made private. Is that possible?
+
+  # BYLAWS
 
   def bylaw_table
     table_select('BY-LAWS PASSED (RECEIVED THIRD READING)')
@@ -31,6 +37,24 @@ class Disposition
         disposition: bylaw_row.cells[2].text }
     end
   end
+
+  # MOTIONS
+  
+  def motion_table
+    table_select('COUNCIL MOTIONS')
+  end
+
+  def motion_table_rows
+    motion_table.rows[2..-1] # The first two rows are headers
+  end
+
+  def motion_data
+    motion_table_rows.map do |motion_row|
+      {}
+    end
+  end
+
+  # HELPERS
 
   def table_select(heading)
     tables.select do |t|
