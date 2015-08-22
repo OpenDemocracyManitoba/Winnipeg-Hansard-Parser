@@ -39,6 +39,8 @@ class Disposition
   end
 
   # MOTIONS
+  #
+  # Motion table in document cannot be broken into multiple tables.
   
   def motion_table
     table_select('COUNCIL MOTIONS')
@@ -50,7 +52,10 @@ class Disposition
 
   def motion_data
     motion_table_rows.map do |motion_row|
-      {}
+      { number:      motion_row.cells[0].text,
+        movers:      motion_row.cells[1].text,
+        subject:     motion_row.cells[2].text,
+        disposition: motion_row.cells[3].text }
     end
   end
 
