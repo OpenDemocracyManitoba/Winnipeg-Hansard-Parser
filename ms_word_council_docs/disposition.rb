@@ -31,7 +31,7 @@ class Disposition
     bylaw_table_rows.map do |bylaw_row|
       { number:      bylaw_row.cells[0].text,
         subject:     bylaw_row.cells[1].text,
-        disposition: bylaw_row.cells[2].text == 'PASSED' }
+        disposition: bylaw_row.cells[2].text }
     end
   end
 end
