@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'cgi'
 
-attendees = ['Mayor Katz', 'Councillor Sharma', 'Councillor Browaty', 'Councillor Eadie', 'Councillor Fielding', 'Councillor Gerbasi', 'Councillor Havixbeck', 'Councillor Mayes', 'Councillor Nordman', 'Councillor Orlikow', 'Councillor Pagtakhan', 'Councillor Smith', 'Councillor Steen', 'Councillor Swandel', 'Councillor Vandal', 'Councillor Wyatt']
+attendees = ['Mayor Bowman', 'Councillor Sharma', 'Councillor Allard', 'Councillor Browaty', 'Councillor Dobson', 'Councillor Eadie', 'Councillor Gerbasi', 'Councillor Gillingham', 'Councillor Gilroy', 'Councillor Lukes', 'Councillor Mayes', 'Councillor Morantz', 'Councillor Orlikow', 'Councillor Pagtakhan', 'Councillor Schreyer', 'Councillor Wyatt']
 
 if ARGV.size != 2
   puts 'Missing required arguments.'
