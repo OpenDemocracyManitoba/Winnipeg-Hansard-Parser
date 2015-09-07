@@ -12,7 +12,7 @@ function capitalized_phrases_chart() {
           offset: 240,
           scaleMinSpace: 0
         },
-        
+
         axisX: {
             labelInterpolationFnc: function(value) {
                 return (isNaN(value) || value % 1 == 0 ) ? value : ' '; // Only use whole numbers.
@@ -24,13 +24,13 @@ function capitalized_phrases_chart() {
     // that is resolving to our chart container element. The Second parameter
     // is the actual data object.
     new Chartist.Bar('.ct-chart.capitalized-phrases', capitalized_phrases, options);
-    
+
     options['axisY']['offset'] = 100;
-    
+
     new Chartist.Bar('.ct-chart.popular-terms', popular_terms, options);
-    
+
     options['axisY']['offset'] = 200;
     options['height'] = 510;
-    
-    new Chartist.Bar('.ct-chart.words-spoken', words_spoken_by_councillors, options);
+
+//    new Chartist.Bar('.ct-chart.words-spoken', words_spoken_by_councillors, options);
 }

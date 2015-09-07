@@ -121,10 +121,11 @@ header .form-group {
         }
 
 @media (min-width: 992px) {
+/*
     .roll_call {
         min-height: 556px;
     }
-
+*/
     .section-links {
         min-height: 516px;
     }

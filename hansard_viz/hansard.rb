@@ -47,7 +47,7 @@ class Hansard
 
   def capitalized_phrases_counted
     excluded_phrases = attendance_with_guests
-    excluded_phrases << 'By-law  No'
+    excluded_phrases << 'By-law  No' << 'Motion No' << 'Item No' << 'Madam Clerk' << 'Madam Chair' << 'Speaker Gerbasi'
     PatternCounter.new(all_words, CAPITALIZED_PHRASE_REGEX, excluded_phrases)
                   .unique_matches_sorted
                   .map do |phrase, count| # Re-Capitalize Phrases
@@ -66,17 +66,17 @@ class Hansard
       words + speaker_section['spoken']
     end
   end
-  
+
   def all_words_count
     PatternCounter.new(all_words, WORD_REGEX).matches.count
   end
-  
+
   def attendance_with_guests
     @attendance_with_guests ||= speaker_sections.map do |section|
       section['name']
     end.uniq.reject { |name| name =~ /clerk/i}
   end
-  
+
   private
 
   def sections_of_type(section_type)
