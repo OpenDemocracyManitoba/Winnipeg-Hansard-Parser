@@ -13,7 +13,7 @@ class Disposition
   end
 
   def motions
-   motion_data 
+   motion_data
   end
 
   private
@@ -42,7 +42,7 @@ class Disposition
   #
   # * Motion table in document cannot be broken into multiple tables.
   # * Many motion subjects contain lists and other formatting. Currently this is ignore and converted to text only.
-  
+
   def motion_table
     table_select('COUNCIL MOTIONS')
   end
